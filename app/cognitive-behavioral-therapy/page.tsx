@@ -9,76 +9,38 @@ import { useState } from 'react';
 import NavigateButtons from './components/navigateButtons';
 import { useRouter } from 'next/navigation';
 
-export enum Page {
-	Thought = 'Thought',
-	Distortion = 'Distortion',
-	Evidence = 'Evidence',
-	Reframed = 'Reframed',
-	Summary = 'Summary',
-}
-
 export default function CognitiveBehavioralTherapyPage() {
 	const router = useRouter();
-	const [currentPage, setCurrentPage] = useState<Page>(Page.Thought);
+	const [currentPage, setCurrentPage] = useState('Thought');
+	const [cbt, setCbt] = useState();
 
 	const displayStep = () => {
-		switch (currentPage) {
-			case Page.Thought:
-				return <Thought />;
-			case Page.Distortion:
-				return <Distortion />;
-			case Page.Evidence:
-				return <Evidence />;
-			case Page.Reframed:
-				return <Reframed />;
-			case Page.Summary:
-				return <Summary />;
-			default:
-				return <Thought />;
-		}
+		if (currentPage === 'Thought') return <Thought />;
+		if (currentPage === 'Distortion') return <Distortion />;
+		if (currentPage === 'Evidence') return <Evidence />;
+		if (currentPage === 'Reframed') return <Reframed />;
+		if (currentPage === 'Summary') return <Summary />;
+
+		return null;
 	};
 
 	const changePage = (direction: 'next' | 'back') => {
-		if (direction === 'next') {
-			switch (currentPage) {
-				case Page.Thought:
-					setCurrentPage(Page.Distortion);
-					break;
-				case Page.Distortion:
-					setCurrentPage(Page.Evidence);
-					break;
-				case Page.Evidence:
-					setCurrentPage(Page.Reframed);
-					break;
-				case Page.Reframed:
-					setCurrentPage(Page.Summary);
-					break;
-				case Page.Summary:
-					router.push('/');
-					break;
-				default:
-					setCurrentPage(Page.Thought);
-			}
-		} else if (direction === 'back') {
-			switch (currentPage) {
-				case Page.Thought:
-					router.push('/');
-					break;
-				case Page.Distortion:
-					setCurrentPage(Page.Thought);
-					break;
-				case Page.Evidence:
-					setCurrentPage(Page.Distortion);
-					break;
-				case Page.Reframed:
-					setCurrentPage(Page.Evidence);
-					break;
-				case Page.Summary:
-					setCurrentPage(Page.Reframed);
-					break;
-				default:
-					setCurrentPage(Page.Thought);
-			}
+		switch (direction) {
+			case 'next':
+				if (currentPage === 'Thought') return setCurrentPage('Distortion');
+				if (currentPage === 'Distortion') return setCurrentPage('Evidence');
+				if (currentPage === 'Evidence') return setCurrentPage('Reframed');
+				if (currentPage === 'Reframed') return setCurrentPage('Summary');
+				if (currentPage === 'Summary') return router.push('/');
+			case 'back':
+				if (currentPage === 'Thought') return router.push('/');
+				if (currentPage === 'Distortion') return setCurrentPage('Thought');
+				if (currentPage === 'Evidence') return setCurrentPage('Distortion');
+				if (currentPage === 'Reframed') return setCurrentPage('Evidence');
+				if (currentPage === 'Summary') return setCurrentPage('Reframed');
+
+			default:
+				return null;
 		}
 	};
 
