@@ -5,6 +5,7 @@ export default function Input({
 	value,
 	type,
 	required = true,
+	handleChange,
 }: {
 	type: string;
 	id: string;
@@ -12,6 +13,7 @@ export default function Input({
 	placeholder?: string;
 	value?: string;
 	required?: boolean;
+	handleChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
 	if (type === 'text') {
 		return (
@@ -23,6 +25,7 @@ export default function Input({
 				value={value}
 				required={required}
 				className="bg-red-50 text-black w-full px-3 py-3 my-2 border border-gray-300 rounded"
+				onChange={handleChange}
 			/>
 		);
 	} else if (type === 'checkbox') {
