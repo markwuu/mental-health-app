@@ -1,13 +1,15 @@
+import Input from '@/app/ui/input';
+import Title from '@/app/ui/title';
+
 export default function Evidence() {
 	return (
 		<div className="flex flex-col">
-			<h1>Is there any evidence that challenges this?</h1>
-			<input
+			<Title text="Is there any evidence that challenges this?" />
+			<Input
 				type="text"
-				id="evidence"
-				name="evidence"
-				required
-				placeholder="Enter your evidence here"
+				id="thought"
+				name="thought"
+				placeholder="Enter your thought here"
 			/>
 		</div>
 	);
