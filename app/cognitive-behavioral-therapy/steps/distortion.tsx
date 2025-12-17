@@ -22,7 +22,7 @@ export default function Distortion() {
 
 	return (
 		<div className="flex flex-col">
-			<Title text="Select a Distortion" />
+			<Title text="2. Select a Distortion" />
 			<div className="grid grid-cols-3 gap-2">
 				{distortions.map((distortion) => (
 					<div className="flex flex-row gap-3 py-1" key={distortion}>

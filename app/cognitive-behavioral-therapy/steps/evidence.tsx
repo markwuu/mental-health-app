@@ -4,7 +4,7 @@ import Title from '@/app/ui/title';
 export default function Evidence() {
 	return (
 		<div className="flex flex-col">
-			<Title text="Is there any evidence that challenges this?" />
+			<Title text="3. Is there any evidence that challenges this?" />
 			<Input
 				type="text"
 				id="thought"
