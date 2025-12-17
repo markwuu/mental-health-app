@@ -1,12 +1,14 @@
+import Input from '@/app/ui/input';
+import Title from '@/app/ui/title';
+
 export default function Thought() {
 	return (
 		<div className="flex flex-col">
-			<h1>Add Your Thought</h1>
-			<input
+			<Title text="Add Your Thought" />
+			<Input
 				type="text"
 				id="thought"
 				name="thought"
-				required
 				placeholder="Enter your thought here"
 			/>
 		</div>
