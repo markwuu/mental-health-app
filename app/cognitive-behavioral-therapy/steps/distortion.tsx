@@ -1,3 +1,6 @@
+import Input from '@/app/ui/input';
+import Title from '@/app/ui/title';
+
 export default function Distortion() {
 	const distortions = [
 		'catastrophizing',
@@ -19,14 +22,14 @@ export default function Distortion() {
 
 	return (
 		<div className="flex flex-col">
-			<h1>Select a Distortion</h1>
+			<Title text="Select a Distortion" />
 			<div className="grid grid-cols-3 gap-2">
 				{distortions.map((distortion) => (
-					<div className="flex flex-row gap-2" key={distortion}>
-						<input
+					<div className="flex flex-row gap-3 py-1" key={distortion}>
+						<Input
 							type="checkbox"
 							id={distortion}
-							name="distortion"
+							name={distortion}
 							value={distortion}
 						/>
 						<label htmlFor={distortion}>{distortion}</label>
