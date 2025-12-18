@@ -10,33 +10,28 @@ import NavigateButtons from './components/navigateButtons';
 import { useRouter } from 'next/navigation';
 import { createContext } from 'react';
 
-export interface cbtProps {
+type CBTContextType = {
 	thought: string;
 	distortions: string[];
 	evidence: string;
 	reframed: string;
-}
+};
 
-export const CBTContext = createContext<cbtProps>({
+const emptyCBT = {
 	thought: '',
 	distortions: [''],
 	evidence: '',
 	reframed: '',
-});
+};
+
+export const CBTContext = createContext<CBTContextType>(emptyCBT);
 
 export default function CognitiveBehavioralTherapyPage() {
 	const router = useRouter();
 	const [currentPage, setCurrentPage] = useState('Thought');
-	const [cbt, setCbt] = useState({
-		thought: '',
-		distortions: [''],
-		evidence: '',
-		reframed: '',
-	});
-	console.log(`🚀 ~ CognitiveBehavioralTherapyPage ~ cbt:`, cbt);
+	const [cbt, setCbt] = useState<CBTContextType>(emptyCBT);
 
 	const updateCbt = (value: string) => {
-		console.log(`🚀 ~ updateCbt ~ value:`, value);
 		setCbt((prev) => ({
 			...prev,
 			thought: value,
@@ -74,9 +69,11 @@ export default function CognitiveBehavioralTherapyPage() {
 	};
 
 	return (
-		<div className="space-y-8 p-20">
-			{displayStep()}
-			<NavigateButtons changePage={changePage} />
-		</div>
+		<CBTContext.Provider value={cbt}>
+			<div className="space-y-8 p-20">
+				{displayStep()}
+				<NavigateButtons changePage={changePage} />
+			</div>
+		</CBTContext.Provider>
 	);
 }
