@@ -1,7 +1,7 @@
 'use client';
 
 import { Thought } from './steps/thought';
-import Distortion from './steps/distortion';
+import { Distortion } from './steps/distortion';
 import Evidence from './steps/evidence';
 import Reframed from './steps/reframed';
 import Summary from './steps/summary';
@@ -10,16 +10,39 @@ import NavigateButtons from './components/navigateButtons';
 import { useRouter } from 'next/navigation';
 import { createContext } from 'react';
 
-type CBTContextType = {
+export type distortion = {
+	label: string;
+	checked: boolean;
+};
+
+export type CBTContextType = {
 	thought: string;
-	distortions: string[];
+	distortions: distortion[];
 	evidence: string;
 	reframed: string;
 };
 
+const distortionList = [
+	{ label: 'catastrophizing', checked: false },
+	{ label: 'should statements', checked: false },
+	{ label: 'magnification', checked: false },
+	{ label: 'minimization', checked: false },
+	{ label: 'emotional reasoning', checked: false },
+	{ label: 'mental filter', checked: false },
+	{ label: 'disqualify the positive', checked: false },
+	{ label: 'all-or-nothing thinking', checked: false },
+	{ label: 'personalization', checked: false },
+	{ label: 'blaming', checked: false },
+	{ label: 'jumping to conclusions', checked: false },
+	{ label: 'mind reading', checked: false },
+	{ label: 'fortune telling', checked: false },
+	{ label: 'overgeneralization', checked: false },
+	{ label: 'labeling', checked: false },
+];
+
 const emptyCBT = {
 	thought: '',
-	distortions: [''],
+	distortions: distortionList,
 	evidence: '',
 	reframed: '',
 };
@@ -31,16 +54,16 @@ export default function CognitiveBehavioralTherapyPage() {
 	const [currentPage, setCurrentPage] = useState('Thought');
 	const [cbt, setCbt] = useState<CBTContextType>(emptyCBT);
 
-	const updateCbt = (value: string) => {
-		setCbt((prev) => ({
-			...prev,
-			thought: value,
-		}));
+	const updateCbt = (
+		value: { thought: string } | { distortions: distortion[] },
+	) => {
+		setCbt((prev) => ({ ...prev, ...value }));
 	};
 
 	const displayStep = () => {
 		if (currentPage === 'Thought') return <Thought updateCbt={updateCbt} />;
-		if (currentPage === 'Distortion') return <Distortion />;
+		if (currentPage === 'Distortion')
+			return <Distortion updateCbt={updateCbt} />;
 		if (currentPage === 'Evidence') return <Evidence />;
 		if (currentPage === 'Reframed') return <Reframed />;
 		if (currentPage === 'Summary') return <Summary />;
