@@ -1,6 +1,6 @@
 'use client';
 
-import Thought from './steps/thought';
+import { Thought } from './steps/thought';
 import Distortion from './steps/distortion';
 import Evidence from './steps/evidence';
 import Reframed from './steps/reframed';
@@ -8,14 +8,43 @@ import Summary from './steps/summary';
 import { useState } from 'react';
 import NavigateButtons from './components/navigateButtons';
 import { useRouter } from 'next/navigation';
+import { createContext } from 'react';
+
+export interface cbtProps {
+	thought: string;
+	distortions: string[];
+	evidence: string;
+	reframed: string;
+}
+
+export const CBTContext = createContext<cbtProps>({
+	thought: '',
+	distortions: [''],
+	evidence: '',
+	reframed: '',
+});
 
 export default function CognitiveBehavioralTherapyPage() {
 	const router = useRouter();
 	const [currentPage, setCurrentPage] = useState('Thought');
-	const [cbt, setCbt] = useState();
+	const [cbt, setCbt] = useState({
+		thought: '',
+		distortions: [''],
+		evidence: '',
+		reframed: '',
+	});
+	console.log(`🚀 ~ CognitiveBehavioralTherapyPage ~ cbt:`, cbt);
+
+	const updateCbt = (value: string) => {
+		console.log(`🚀 ~ updateCbt ~ value:`, value);
+		setCbt((prev) => ({
+			...prev,
+			thought: value,
+		}));
+	};
 
 	const displayStep = () => {
-		if (currentPage === 'Thought') return <Thought />;
+		if (currentPage === 'Thought') return <Thought updateCbt={updateCbt} />;
 		if (currentPage === 'Distortion') return <Distortion />;
 		if (currentPage === 'Evidence') return <Evidence />;
 		if (currentPage === 'Reframed') return <Reframed />;
