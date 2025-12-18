@@ -8,6 +8,7 @@ export default function Input({
 	handleChange,
 	checked,
 	onChange,
+	readOnly,
 }: {
 	type: string;
 	id: string;
@@ -18,6 +19,7 @@ export default function Input({
 	handleChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	checked?: boolean;
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	readOnly?: boolean;
 }) {
 	if (type === 'text') {
 		return (
@@ -42,6 +44,7 @@ export default function Input({
 				className="h-6 w-6"
 				onChange={onChange}
 				checked={checked}
+				readOnly={readOnly}
 			/>
 		);
 	}
