@@ -4,9 +4,7 @@ import { FC, useContext } from 'react';
 import { CBTContext, distortion } from '../page';
 
 interface ChildProps {
-	updateCbt: (
-		value: { thought: string } | { distortions: distortion[] },
-	) => void;
+	updateCbt: (value: { distortions: distortion[] }) => void;
 }
 
 export const Distortion: FC<ChildProps> = ({ updateCbt }) => {

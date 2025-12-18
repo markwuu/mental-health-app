@@ -1,12 +1,10 @@
 import Input from '@/app/ui/input';
 import Title from '@/app/ui/title';
 import { FC, useContext, useState } from 'react';
-import { CBTContext, distortion } from '../page';
+import { CBTContext } from '../page';
 
 interface ChildProps {
-	updateCbt: (
-		value: { thought: string } | { distortions: distortion[] },
-	) => void;
+	updateCbt: (value: { thought: string }) => void;
 }
 
 export const Thought: FC<ChildProps> = ({ updateCbt }) => {
