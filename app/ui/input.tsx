@@ -6,6 +6,8 @@ export default function Input({
 	type,
 	required = true,
 	handleChange,
+	checked,
+	onChange,
 }: {
 	type: string;
 	id: string;
@@ -14,6 +16,8 @@ export default function Input({
 	value?: string;
 	required?: boolean;
 	handleChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	checked?: boolean;
+	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
 	if (type === 'text') {
 		return (
@@ -36,6 +40,8 @@ export default function Input({
 				name={name}
 				value={value}
 				className="h-6 w-6"
+				onChange={onChange}
+				checked={checked}
 			/>
 		);
 	}
