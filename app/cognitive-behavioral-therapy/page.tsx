@@ -2,8 +2,8 @@
 
 import { Thought } from './steps/thought';
 import { Distortion } from './steps/distortion';
-import Evidence from './steps/evidence';
-import Reframed from './steps/reframed';
+import { Evidence } from './steps/evidence';
+import { Reframed } from './steps/reframed';
 import Summary from './steps/summary';
 import { useState } from 'react';
 import NavigateButtons from './components/navigateButtons';
@@ -55,7 +55,11 @@ export default function CognitiveBehavioralTherapyPage() {
 	const [cbt, setCbt] = useState<CBTContextType>(emptyCBT);
 
 	const updateCbt = (
-		value: { thought: string } | { distortions: distortion[] },
+		value:
+			| { thought: string }
+			| { distortions: distortion[] }
+			| { evidence: string }
+			| { reframed: string },
 	) => {
 		setCbt((prev) => ({ ...prev, ...value }));
 	};
@@ -64,8 +68,8 @@ export default function CognitiveBehavioralTherapyPage() {
 		if (currentPage === 'Thought') return <Thought updateCbt={updateCbt} />;
 		if (currentPage === 'Distortion')
 			return <Distortion updateCbt={updateCbt} />;
-		if (currentPage === 'Evidence') return <Evidence />;
-		if (currentPage === 'Reframed') return <Reframed />;
+		if (currentPage === 'Evidence') return <Evidence updateCbt={updateCbt} />;
+		if (currentPage === 'Reframed') return <Reframed updateCbt={updateCbt} />;
 		if (currentPage === 'Summary') return <Summary />;
 
 		return null;
