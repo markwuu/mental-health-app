@@ -3,7 +3,7 @@
 import { Trigger } from './steps/trigger';
 import { Distance } from './steps/distance';
 import { Sensations } from './steps/sensations';
-import Summary from './steps/summary';
+import { Summary } from './steps/summary';
 import { useState } from 'react';
 import NavigateButtons from './components/navigateButtons';
 import { useRouter } from 'next/navigation';
@@ -11,6 +11,7 @@ import { createContext } from 'react';
 import { EnergyRelease } from './steps/energyRelease';
 import { Analyze } from './steps/analyze';
 import { Healing } from './steps/healing';
+import { Reflect } from './steps/reflect';
 
 export type sensation = {
 	label: string;
@@ -29,12 +30,25 @@ export type analyzeTrigger = {
 	appropriateReaction: boolean | null;
 };
 
+export type healingActivity = {
+	label: string;
+	checked: boolean;
+};
+
+export type healing = {
+	activities: healingActivity[];
+	giveMyself: string;
+	givePartner: string;
+};
+
 export type TriggerContextType = {
 	level: number;
 	distance: boolean | null;
 	sensations: sensation[];
 	energyRelease: energyRelease[];
 	analyzeTrigger: analyzeTrigger;
+	healing: healing;
+	reflect: number;
 };
 
 const sensationsList = [
@@ -58,6 +72,15 @@ const energyReleaseList = [
 	{ label: 'deep breathing', checked: false },
 ];
 
+const healingActivityList = [
+	{ label: 'call a friend', checked: false },
+	{ label: 'get a hug', checked: false },
+	{ label: 'play music', checked: false },
+	{ label: 'watch tv', checked: false },
+	{ label: 'journal', checked: false },
+	{ label: 'meditate', checked: false },
+];
+
 const emptyTrigger = {
 	level: 1,
 	distance: null,
@@ -69,15 +92,20 @@ const emptyTrigger = {
 		reactingTo: '',
 		appropriateReaction: null,
 	},
+	healing: {
+		activities: healingActivityList,
+		giveMyself: '',
+		givePartner: '',
+	},
+	reflect: 1,
 };
 
 export const TriggerContext = createContext<TriggerContextType>(emptyTrigger);
 
-export default function CognitiveBehavioralTherapyPage() {
+export default function WorkingThroughATriggerPage() {
 	const router = useRouter();
 	const [currentPage, setCurrentPage] = useState('Trigger');
 	const [trigger, setTrigger] = useState<TriggerContextType>(emptyTrigger);
-	console.log(`🚀 ~ CognitiveBehavioralTherapyPage ~ trigger:`, trigger);
 
 	// useEffect to check localstorage and set trigger with user input values
 
@@ -87,7 +115,9 @@ export default function CognitiveBehavioralTherapyPage() {
 			| { distance: boolean }
 			| { sensations: sensation[] }
 			| { energyRelease: energyRelease[] }
-			| { analyzeTrigger: analyzeTrigger },
+			| { analyzeTrigger: analyzeTrigger }
+			| { healing: healing }
+			| { reflect: number },
 	) => {
 		setTrigger((prev) => ({ ...prev, ...value }));
 	};
@@ -105,7 +135,9 @@ export default function CognitiveBehavioralTherapyPage() {
 			return <Analyze updateTrigger={updateTrigger} />;
 		if (currentPage === 'Healing')
 			return <Healing updateTrigger={updateTrigger} />;
-		// if (currentPage === 'Summary') return <Summary />;
+		if (currentPage === 'Reflect')
+			return <Reflect updateTrigger={updateTrigger} />;
+		if (currentPage === 'Summary') return <Summary />;
 
 		return null;
 	};
@@ -119,7 +151,8 @@ export default function CognitiveBehavioralTherapyPage() {
 					return setCurrentPage('EnergyRelease');
 				if (currentPage === 'EnergyRelease') return setCurrentPage('Analyze');
 				if (currentPage === 'Analyze') return setCurrentPage('Healing');
-				if (currentPage === 'Healing') return setCurrentPage('Summary');
+				if (currentPage === 'Healing') return setCurrentPage('Reflect');
+				if (currentPage === 'Reflect') return setCurrentPage('Summary');
 				if (currentPage === 'Summary') return router.push('/');
 			case 'back':
 				if (currentPage === 'Trigger') return router.push('/');
@@ -129,7 +162,8 @@ export default function CognitiveBehavioralTherapyPage() {
 					return setCurrentPage('Sensations');
 				if (currentPage === 'Analyze') return setCurrentPage('EnergyRelease');
 				if (currentPage === 'Healing') return setCurrentPage('Analyze');
-				if (currentPage === 'Summary') return setCurrentPage('Healing');
+				if (currentPage === 'Reflect') return setCurrentPage('Healing');
+				if (currentPage === 'Summary') return setCurrentPage('Reflect');
 
 			default:
 				return null;
