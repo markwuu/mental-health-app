@@ -50,8 +50,8 @@ export const Healing: FC<ChildProps> = ({ updateTrigger }) => {
 			const healingActivityLabels = trigger.healing.activities.map(
 				(activity) => activity.label,
 			);
-			const repeatSensation = healingActivityLabels.includes(inputValue);
-			if (!repeatSensation) {
+			const repeatHealingActivity = healingActivityLabels.includes(inputValue);
+			if (!repeatHealingActivity) {
 				updateTrigger({
 					healing: {
 						activities: [
@@ -115,21 +115,23 @@ export const Healing: FC<ChildProps> = ({ updateTrigger }) => {
 					</div>
 					<div className="grid grid-cols-3 gap-2">
 						{trigger.healing.activities.map(
-							(sensation: { label: string; checked: boolean }) => {
+							(healingActivity: { label: string; checked: boolean }) => {
 								return (
 									<div
 										className="flex flex-row gap-3 py-1"
-										key={sensation.label}
+										key={healingActivity.label}
 									>
 										<Input
 											type="checkbox"
-											id={sensation.label}
-											value={sensation.label}
-											name={sensation.label}
-											checked={sensation.checked}
+											id={healingActivity.label}
+											value={healingActivity.label}
+											name={healingActivity.label}
+											checked={healingActivity.checked}
 											onChange={(e) => handleCheckboxChange(e)}
 										/>
-										<label htmlFor={sensation.label}>{sensation.label}</label>
+										<label htmlFor={healingActivity.label}>
+											{healingActivity.label}
+										</label>
 									</div>
 								);
 							},
