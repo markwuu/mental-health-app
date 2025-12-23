@@ -172,8 +172,10 @@ export default function WorkingThroughATriggerPage() {
 
 	return (
 		<TriggerContext.Provider value={trigger}>
-			<div className="space-y-8 p-20 max-w-4xl">
-				<h1 className="text-3xl underline">Working through a trigger</h1>
+			<div className="space-y-8 p-20 max-w-4xl w-187.5 mx-auto py-16">
+				<h1 className="text-3xl text-center tracking-wide">
+					Working through a trigger
+				</h1>
 				{displayStep()}
 				<NavigateButtons changePage={changePage} />
 			</div>
