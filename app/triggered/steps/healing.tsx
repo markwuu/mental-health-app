@@ -91,12 +91,9 @@ export const Healing: FC<ChildProps> = ({ updateTrigger }) => {
 		<div className="flex flex-col">
 			<Title text="6. Healing and finding your center" />
 			<div className="flex flex-col pb-5 gap-5.5">
-				<div className="max-w-lg">
-					<p className="italic">
-						Select an activity to do to help yourself become present again or
-						add one not listed below
-					</p>
-					<div className="flex gap-6 ">
+				<div>
+					<p className="italic">Add an activity</p>
+					<div className="flex gap-6 pb-5">
 						<Input
 							type="text"
 							id="thought"
@@ -104,7 +101,6 @@ export const Healing: FC<ChildProps> = ({ updateTrigger }) => {
 							value={inputValue}
 							placeholder="Add activity here"
 							handleChange={(e) => handleInputChange(e)}
-							styles={'max-w-500'}
 						/>
 						<button
 							onClick={handleSubmit}
@@ -113,6 +109,9 @@ export const Healing: FC<ChildProps> = ({ updateTrigger }) => {
 							+
 						</button>
 					</div>
+					<p className="italic">
+						Select an activity to do to help yourself become present again
+					</p>
 					<div className="grid grid-cols-3 gap-2">
 						{trigger.healing.activities.map(
 							(healingActivity: { label: string; checked: boolean }) => {
