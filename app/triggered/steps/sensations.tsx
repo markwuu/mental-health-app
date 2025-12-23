@@ -50,10 +50,7 @@ export const Sensations: FC<ChildProps> = ({ updateTrigger }) => {
 	return (
 		<div className="flex flex-col">
 			<Title text="3. Body Sensations" />
-			<p className="italic">
-				Select all the sensations happening in your body or add one not listed
-				below
-			</p>
+			<p className="italic">Add a body sensation</p>
 			<div className="flex gap-6 pb-5">
 				<Input
 					type="text"
@@ -62,15 +59,15 @@ export const Sensations: FC<ChildProps> = ({ updateTrigger }) => {
 					value={inputValue}
 					placeholder="Add body sensation"
 					handleChange={(e) => handleInputChange(e)}
-					styles={'max-w-2xs'}
 				/>
 				<button
 					onClick={handleSubmit}
-					className="px-4 py-3 my-2 border-2 border-gray-300 rounded"
+					className="px-4.5 my-2 border-2 border-gray-300 rounded"
 				>
 					+
 				</button>
 			</div>
+			<p className="italic">Select all the sensations happening in your body</p>
 			<div className="grid grid-cols-3 gap-2">
 				{trigger.sensations.map(
 					(sensation: { label: string; checked: boolean }) => {
