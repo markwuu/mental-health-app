@@ -9,9 +9,12 @@ interface ChildProps {
 
 export const Distance: FC<ChildProps> = ({ updateTrigger }) => {
 	const trigger = useContext(TriggerContext);
-	const [selectedValue, setSelectedValue] = useState<string>(
-		trigger.distance ? 'yes' : 'no',
-	);
+	const getInitialValue = () => {
+		if (trigger.distance === true) return 'yes';
+		if (trigger.distance === false) return 'no';
+		return '';
+	};
+	const [selectedValue, setSelectedValue] = useState<string>(getInitialValue);
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSelectedValue(event.target.value);
