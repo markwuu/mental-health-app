@@ -14,7 +14,6 @@ export const Distance: FC<ChildProps> = ({ updateTrigger }) => {
 	);
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		console.log(event.target.value);
 		setSelectedValue(event.target.value);
 		updateTrigger({ distance: event.target.value === 'yes' ? true : false });
 	};
