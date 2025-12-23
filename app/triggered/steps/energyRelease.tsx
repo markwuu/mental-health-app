@@ -50,10 +50,7 @@ export const EnergyRelease: FC<ChildProps> = ({ updateTrigger }) => {
 	return (
 		<div className="flex flex-col">
 			<Title text="4. Releasing Energy" />
-			<p className="italic">
-				Select an activity to physically release the negative energy currently
-				in you or add one not listed below
-			</p>
+			<p className="italic">Add an activity</p>
 			<div className="flex gap-6 pb-5">
 				<Input
 					type="text"
@@ -62,7 +59,6 @@ export const EnergyRelease: FC<ChildProps> = ({ updateTrigger }) => {
 					value={inputValue}
 					placeholder="Add activity here"
 					handleChange={(e) => handleInputChange(e)}
-					styles={'max-w-2xs'}
 				/>
 				<button
 					onClick={handleSubmit}
@@ -71,6 +67,9 @@ export const EnergyRelease: FC<ChildProps> = ({ updateTrigger }) => {
 					+
 				</button>
 			</div>
+			<p className="italic">
+				Select an activity to physically release the negative energy in you
+			</p>
 			<div className="grid grid-cols-3 gap-2">
 				{trigger.energyRelease.map(
 					(energyRelease: { label: string; checked: boolean }) => {
