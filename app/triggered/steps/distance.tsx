@@ -23,8 +23,11 @@ export const Distance: FC<ChildProps> = ({ updateTrigger }) => {
 
 	return (
 		<div className="flex flex-col">
-			<Title text="2. Are you able to create distance from your trigger?" />
-			<div className="py-3 my-2">
+			<Title text="2. Create distance" />
+			<p className="italic">
+				Are you able to physically remove yourself from the trigger?
+			</p>
+			<div className="py-1 my-2">
 				<Input
 					type="radio"
 					id="yes"
