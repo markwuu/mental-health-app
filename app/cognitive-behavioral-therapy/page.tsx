@@ -98,6 +98,7 @@ export default function CognitiveBehavioralTherapyPage() {
 	return (
 		<CBTContext.Provider value={cbt}>
 			<div className="space-y-8 p-20">
+				<h1 className="text-3xl underline">Working through a trigger</h1>
 				{displayStep()}
 				<NavigateButtons changePage={changePage} />
 			</div>
