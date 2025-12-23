@@ -65,7 +65,7 @@ export const Analyze: FC<ChildProps> = ({ updateTrigger }) => {
 			<Title text="5. Analyze the situation" />
 			<div className="flex flex-col pb-5 gap-5.5">
 				<div>
-					<p>What am I experiencing?</p>
+					<p className="italic">What am I experiencing?</p>
 					<Input
 						type="text"
 						id="experiencing"
@@ -75,7 +75,7 @@ export const Analyze: FC<ChildProps> = ({ updateTrigger }) => {
 					/>
 				</div>
 				<div>
-					<p>What story am I telling myself?</p>
+					<p className="italic">What story am I telling myself?</p>
 					<Input
 						type="text"
 						id="story"
@@ -85,7 +85,7 @@ export const Analyze: FC<ChildProps> = ({ updateTrigger }) => {
 					/>
 				</div>
 				<div>
-					<p>What exactly am I reacting to?</p>
+					<p className="italic">What exactly am I reacting to?</p>
 					<Input
 						type="text"
 						id="reactingTo"
@@ -95,7 +95,7 @@ export const Analyze: FC<ChildProps> = ({ updateTrigger }) => {
 					/>
 				</div>
 				<div>
-					<p>Is my reaction appropriate?</p>
+					<p className="italic">Is my reaction appropriate?</p>
 					<div className="pb-3 my-2">
 						<Input
 							type="radio"
