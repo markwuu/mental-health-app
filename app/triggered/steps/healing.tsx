@@ -112,12 +112,12 @@ export const Healing: FC<ChildProps> = ({ updateTrigger }) => {
 					<p className="italic">
 						Select an activity to do to help yourself become present again
 					</p>
-					<div className="grid grid-cols-3 gap-2">
+					<div className="grid grid-cols-3 gap-2 pt-1">
 						{trigger.healing.activities.map(
 							(healingActivity: { label: string; checked: boolean }) => {
 								return (
 									<div
-										className="flex flex-row gap-3 py-1"
+										className="flex flex-row items-center gap-3 py-1"
 										key={healingActivity.label}
 									>
 										<Input

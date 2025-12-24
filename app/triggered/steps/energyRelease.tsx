@@ -70,12 +70,12 @@ export const EnergyRelease: FC<ChildProps> = ({ updateTrigger }) => {
 			<p className="italic">
 				Select an activity to physically release the negative energy in you
 			</p>
-			<div className="grid grid-cols-3 gap-2">
+			<div className="grid grid-cols-3 gap-2 pt-1">
 				{trigger.energyRelease.map(
 					(energyRelease: { label: string; checked: boolean }) => {
 						return (
 							<div
-								className="flex flex-row gap-3 py-1"
+								className="flex flex-row items-center gap-3 py-1"
 								key={energyRelease.label}
 							>
 								<Input

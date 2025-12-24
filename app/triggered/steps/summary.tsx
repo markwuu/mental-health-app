@@ -41,11 +41,14 @@ export const Summary = () => {
 			<p> {distance === true ? 'yes' : 'no'} </p>
 			<h2 className="pt-7 font-extrabold text-lg">3. Body Sensations</h2>
 			<p className="italic">Selected sensations happening in your body </p>
-			<div className="grid grid-cols-3 gap-2">
+			<div className="grid grid-cols-3 gap-2 py-1">
 				{sensations.map((sensation: { label: string; checked: boolean }) => {
 					if (sensation.checked) {
 						return (
-							<div className="flex flex-row gap-3 py-1" key={sensation.label}>
+							<div
+								className="flex flex-row items-center gap-3 py-1"
+								key={sensation.label}
+							>
 								<Input
 									type="checkbox"
 									id={sensation.label}
@@ -62,13 +65,13 @@ export const Summary = () => {
 			</div>
 			<h2 className="pt-7 font-extrabold text-lg">4. Releasing Energy</h2>
 			<p className="italic">Selected activities to release negative energy </p>
-			<div className="grid grid-cols-3 gap-2">
+			<div className="grid grid-cols-3 gap-2 py-1">
 				{energyRelease.map(
 					(energyRelease: { label: string; checked: boolean }) => {
 						if (energyRelease.checked) {
 							return (
 								<div
-									className="flex flex-row gap-3 py-1"
+									className="flex flex-row items-center gap-3 py-1"
 									key={energyRelease.label}
 								>
 									<Input
@@ -103,13 +106,13 @@ export const Summary = () => {
 			<p className="italic">
 				Selected activities to bring yourself back to the present moment
 			</p>
-			<div className="grid grid-cols-3 gap-2">
+			<div className="grid grid-cols-3 gap-2 py-1">
 				{trigger.healing.activities.map(
 					(healingActivity: { label: string; checked: boolean }) => {
 						if (healingActivity.checked) {
 							return (
 								<div
-									className="flex flex-row gap-3 py-1"
+									className="flex flex-row items-center gap-3 py-1"
 									key={healingActivity.label}
 								>
 									<Input
@@ -138,29 +141,6 @@ export const Summary = () => {
 			</h2>
 			<p className="italic">Rate trigger intensity from 1-10</p>
 			<p>{finalPercent()}</p>
-			{/* <h2 className="pt-7 font-extrabold text-lg">2. Distortions:</h2>
-			<div className="grid grid-cols-3 gap-2"> */}
-			{/* {distortions.map((distortion: { label: string; checked: boolean }) => {
-					return (
-						<div className="flex flex-row gap-3 py-1" key={distortion.label}>
-							<Input
-								type="checkbox"
-								id={distortion.label}
-								value={distortion.label}
-								name={distortion.label}
-								checked={distortion.checked}
-								readOnly={true}
-							/>
-							<label htmlFor={distortion.label}>{distortion.label}</label>
-						</div>
-					);
-				})} 
-			</div>
-				 */}
-			{/* <h2 className="pt-7 font-extrabold text-lg">3. Evidence:</h2>
-			<p> {evidence} </p>
-			<h2 className="pt-7 font-extrabold text-lg">4. Reframed Thought:</h2>
-			<p> {reframed} </p> */}
 		</div>
 	);
 };

@@ -68,11 +68,14 @@ export const Sensations: FC<ChildProps> = ({ updateTrigger }) => {
 				</button>
 			</div>
 			<p className="italic">Select all the sensations happening in your body</p>
-			<div className="grid grid-cols-3 gap-2">
+			<div className="grid grid-cols-3 gap-2 pt-1">
 				{trigger.sensations.map(
 					(sensation: { label: string; checked: boolean }) => {
 						return (
-							<div className="flex flex-row gap-3 py-1" key={sensation.label}>
+							<div
+								className="flex flex-row items-center gap-3 py-1"
+								key={sensation.label}
+							>
 								<Input
 									type="checkbox"
 									id={sensation.label}
