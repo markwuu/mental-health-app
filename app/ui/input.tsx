@@ -43,7 +43,7 @@ export default function Input({
 				id={id}
 				name={name}
 				value={value}
-				className={`h-6 w-6"`}
+				className={`h-5 w-5`}
 				onChange={onChange}
 				checked={checked}
 				readOnly={readOnly}
