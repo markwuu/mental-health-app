@@ -42,13 +42,13 @@ export type healing = {
 };
 
 export interface TriggerType {
-	level?: number | null;
-	distance?: boolean | null;
-	sensations?: sensation[];
-	energyRelease?: energyRelease[];
-	analyzeTrigger?: analyzeTrigger;
-	healing?: healing;
-	reflect?: number | null;
+	level: number | undefined;
+	distance: boolean | null;
+	sensations: sensation[];
+	energyRelease: energyRelease[];
+	analyzeTrigger: analyzeTrigger;
+	healing: healing;
+	reflect: number | undefined;
 }
 
 const sensationsList = [
@@ -108,10 +108,11 @@ export default function WorkingThroughATriggerPage() {
 	const [trigger, setTrigger] = useState<TriggerType>(emptyTrigger);
 	const [backButtonDisabled] = useState<boolean>(false);
 	const [nextButtonDisabled, setNextButtonDisabled] = useState<boolean>(true);
+	// console.log(`🚀 ~ WorkingThroughATriggerPage ~ trigger:`, trigger);
 
 	// useEffect to check localstorage and set trigger with user input values
 
-	const updateTrigger = (value: TriggerType) => {
+	const handleDisableButton = (value: TriggerType) => {
 		const {
 			level,
 			distance,
@@ -122,40 +123,52 @@ export default function WorkingThroughATriggerPage() {
 			reflect,
 		} = value;
 
-		if (
-			(level && level > 0) ||
-			typeof distance === 'boolean' ||
-			(reflect && reflect > 0)
-		) {
-			setNextButtonDisabled(false);
-		} else {
-			setNextButtonDisabled(true);
+		const levelAnswered = level && level > 0;
+		const distanceAnswered = typeof distance === 'boolean';
+		const sensationsAnswered = sensations
+			.map((sensation) => (sensation.checked === true ? true : false))
+			.includes(true);
+		const energyReleaseAnswered = energyRelease
+			.map((activity) => (activity.checked === true ? true : false))
+			.includes(true);
+		const analyzeTriggerAnswered =
+			analyzeTrigger.experiencing &&
+			analyzeTrigger.story &&
+			analyzeTrigger.reactingTo &&
+			typeof analyzeTrigger.appropriateReaction === 'boolean';
+		const healingAnswered =
+			healing.activities
+				.map((activity) => (activity.checked === true ? true : false))
+				.includes(true) &&
+			healing.giveMyself &&
+			healing.givePartner;
+		const reflectAnswered = reflect !== undefined && reflect >= 0;
+
+		setNextButtonDisabled(true);
+
+		switch (currentPage) {
+			case 'Trigger':
+				if (levelAnswered) setNextButtonDisabled(false);
+			case 'Distance':
+				if (distanceAnswered) setNextButtonDisabled(false);
+			case 'Sensations':
+				if (sensationsAnswered) setNextButtonDisabled(false);
+			case 'EnergyRelease':
+				if (energyReleaseAnswered) setNextButtonDisabled(false);
+			case 'Analyze':
+				if (analyzeTriggerAnswered) setNextButtonDisabled(false);
+			case 'Healing':
+				if (healingAnswered) setNextButtonDisabled(false);
+			case 'Reflect':
+				if (reflectAnswered) setNextButtonDisabled(false);
+
+			default:
+				return null;
 		}
-		sensations?.map((sensation) => {
-			if (sensation.checked === true) {
-				setNextButtonDisabled(false);
-			}
-		});
-		energyRelease?.map((activity) => {
-			if (activity.checked === true) {
-				setNextButtonDisabled(false);
-			}
-		});
-		if (
-			analyzeTrigger?.experiencing &&
-			analyzeTrigger?.story &&
-			analyzeTrigger?.reactingTo &&
-			typeof analyzeTrigger.appropriateReaction === 'boolean'
-		) {
-			setNextButtonDisabled(false);
-		}
-		if (healing?.giveMyself && healing?.givePartner) {
-			healing?.activities.map((activity) => {
-				if (activity.checked === true) {
-					setNextButtonDisabled(false);
-				}
-			});
-		}
+	};
+
+	const updateTrigger = (value: TriggerType) => {
+		handleDisableButton(value);
 		setTrigger((prev) => ({ ...prev, ...value }));
 	};
 
