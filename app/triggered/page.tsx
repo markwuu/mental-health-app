@@ -41,15 +41,15 @@ export type healing = {
 	givePartner: string;
 };
 
-export type TriggerContextType = {
-	level: number;
-	distance: boolean | null;
-	sensations: sensation[];
-	energyRelease: energyRelease[];
-	analyzeTrigger: analyzeTrigger;
-	healing: healing;
-	reflect: number;
-};
+export interface TriggerType {
+	level?: number | null;
+	distance?: boolean | null;
+	sensations?: sensation[];
+	energyRelease?: energyRelease[];
+	analyzeTrigger?: analyzeTrigger;
+	healing?: healing;
+	reflect?: number | null;
+}
 
 const sensationsList = [
 	{ label: 'sweating', checked: false },
@@ -82,7 +82,7 @@ const healingActivityList = [
 ];
 
 const emptyTrigger = {
-	level: 1,
+	level: undefined,
 	distance: null,
 	sensations: sensationsList,
 	energyRelease: energyReleaseList,
@@ -97,28 +97,65 @@ const emptyTrigger = {
 		giveMyself: '',
 		givePartner: '',
 	},
-	reflect: 1,
+	reflect: undefined,
 };
 
-export const TriggerContext = createContext<TriggerContextType>(emptyTrigger);
+export const TriggerContext = createContext<TriggerType>(emptyTrigger);
 
 export default function WorkingThroughATriggerPage() {
 	const router = useRouter();
 	const [currentPage, setCurrentPage] = useState('Trigger');
-	const [trigger, setTrigger] = useState<TriggerContextType>(emptyTrigger);
+	const [trigger, setTrigger] = useState<TriggerType>(emptyTrigger);
+	const [backButtonDisabled] = useState<boolean>(false);
+	const [nextButtonDisabled, setNextButtonDisabled] = useState<boolean>(true);
 
 	// useEffect to check localstorage and set trigger with user input values
 
-	const updateTrigger = (
-		value:
-			| { level: number }
-			| { distance: boolean }
-			| { sensations: sensation[] }
-			| { energyRelease: energyRelease[] }
-			| { analyzeTrigger: analyzeTrigger }
-			| { healing: healing }
-			| { reflect: number },
-	) => {
+	const updateTrigger = (value: TriggerType) => {
+		const {
+			level,
+			distance,
+			sensations,
+			energyRelease,
+			analyzeTrigger,
+			healing,
+			reflect,
+		} = value;
+
+		if (
+			(level && level > 0) ||
+			typeof distance === 'boolean' ||
+			(reflect && reflect > 0)
+		) {
+			setNextButtonDisabled(false);
+		} else {
+			setNextButtonDisabled(true);
+		}
+		sensations?.map((sensation) => {
+			if (sensation.checked === true) {
+				setNextButtonDisabled(false);
+			}
+		});
+		energyRelease?.map((activity) => {
+			if (activity.checked === true) {
+				setNextButtonDisabled(false);
+			}
+		});
+		if (
+			analyzeTrigger?.experiencing &&
+			analyzeTrigger?.story &&
+			analyzeTrigger?.reactingTo &&
+			typeof analyzeTrigger.appropriateReaction === 'boolean'
+		) {
+			setNextButtonDisabled(false);
+		}
+		if (healing?.giveMyself && healing?.givePartner) {
+			healing?.activities.map((activity) => {
+				if (activity.checked === true) {
+					setNextButtonDisabled(false);
+				}
+			});
+		}
 		setTrigger((prev) => ({ ...prev, ...value }));
 	};
 
@@ -145,25 +182,100 @@ export default function WorkingThroughATriggerPage() {
 	const changePage = (direction: 'next' | 'back') => {
 		switch (direction) {
 			case 'next':
-				if (currentPage === 'Trigger') return setCurrentPage('Distance');
-				if (currentPage === 'Distance') return setCurrentPage('Sensations');
-				if (currentPage === 'Sensations')
+				if (currentPage === 'Trigger') {
+					if (typeof trigger.distance === 'boolean') {
+						setNextButtonDisabled(false);
+					} else {
+						setNextButtonDisabled(true);
+					}
+					return setCurrentPage('Distance');
+				}
+				if (currentPage === 'Distance') {
+					setNextButtonDisabled(true);
+					trigger?.sensations?.map((sensation) => {
+						if (sensation.checked === true) {
+							setNextButtonDisabled(false);
+						}
+					});
+					return setCurrentPage('Sensations');
+				}
+				if (currentPage === 'Sensations') {
+					setNextButtonDisabled(true);
+					trigger?.energyRelease?.map((activity) => {
+						if (activity.checked === true) {
+							setNextButtonDisabled(false);
+						}
+					});
 					return setCurrentPage('EnergyRelease');
-				if (currentPage === 'EnergyRelease') return setCurrentPage('Analyze');
-				if (currentPage === 'Analyze') return setCurrentPage('Healing');
-				if (currentPage === 'Healing') return setCurrentPage('Reflect');
-				if (currentPage === 'Reflect') return setCurrentPage('Summary');
+				}
+				if (currentPage === 'EnergyRelease') {
+					setNextButtonDisabled(true);
+					if (
+						trigger?.analyzeTrigger?.experiencing &&
+						trigger?.analyzeTrigger?.story &&
+						trigger?.analyzeTrigger?.reactingTo &&
+						typeof trigger?.analyzeTrigger.appropriateReaction === 'boolean'
+					) {
+						setNextButtonDisabled(false);
+					}
+					return setCurrentPage('Analyze');
+				}
+				if (currentPage === 'Analyze') {
+					setNextButtonDisabled(true);
+					if (trigger?.healing?.giveMyself && trigger?.healing?.givePartner) {
+						trigger?.healing?.activities.map((activity) => {
+							if (activity.checked === true) {
+								setNextButtonDisabled(false);
+							}
+						});
+					}
+					return setCurrentPage('Healing');
+				}
+				if (currentPage === 'Healing') {
+					setNextButtonDisabled(true);
+					if (
+						trigger.reflect !== null &&
+						trigger.reflect !== undefined &&
+						trigger.reflect >= 0
+					) {
+						setNextButtonDisabled(false);
+					}
+					return setCurrentPage('Reflect');
+				}
+				if (currentPage === 'Reflect') {
+					return setCurrentPage('Summary');
+				}
 				if (currentPage === 'Summary') return router.push('/');
 			case 'back':
 				if (currentPage === 'Trigger') return router.push('/');
-				if (currentPage === 'Distance') return setCurrentPage('Trigger');
-				if (currentPage === 'Sensations') return setCurrentPage('Distance');
-				if (currentPage === 'EnergyRelease')
+				if (currentPage === 'Distance') {
+					setNextButtonDisabled(false);
+					return setCurrentPage('Trigger');
+				}
+				if (currentPage === 'Sensations') {
+					setNextButtonDisabled(false);
+					return setCurrentPage('Distance');
+				}
+				if (currentPage === 'EnergyRelease') {
+					setNextButtonDisabled(false);
 					return setCurrentPage('Sensations');
-				if (currentPage === 'Analyze') return setCurrentPage('EnergyRelease');
-				if (currentPage === 'Healing') return setCurrentPage('Analyze');
-				if (currentPage === 'Reflect') return setCurrentPage('Healing');
-				if (currentPage === 'Summary') return setCurrentPage('Reflect');
+				}
+				if (currentPage === 'Analyze') {
+					setNextButtonDisabled(false);
+					return setCurrentPage('EnergyRelease');
+				}
+				if (currentPage === 'Healing') {
+					setNextButtonDisabled(false);
+					return setCurrentPage('Analyze');
+				}
+				if (currentPage === 'Reflect') {
+					setNextButtonDisabled(false);
+					return setCurrentPage('Healing');
+				}
+				if (currentPage === 'Summary') {
+					setNextButtonDisabled(false);
+					return setCurrentPage('Reflect');
+				}
 
 			default:
 				return null;
@@ -177,7 +289,11 @@ export default function WorkingThroughATriggerPage() {
 					Working through a trigger
 				</h1>
 				{displayStep()}
-				<NavigateButtons changePage={changePage} />
+				<NavigateButtons
+					backButtonDisabled={backButtonDisabled}
+					nextButtonDisabled={nextButtonDisabled}
+					changePage={changePage}
+				/>
 			</div>
 		</TriggerContext.Provider>
 	);
