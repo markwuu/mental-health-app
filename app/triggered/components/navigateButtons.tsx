@@ -1,3 +1,5 @@
+import Button from '@/app/ui/button';
+
 export default function NavigateButtons({
 	changePage,
 }: {
@@ -5,18 +7,8 @@ export default function NavigateButtons({
 }) {
 	return (
 		<div className="flex flex-row gap-7 justify-center">
-			<button
-				className="px-7 py-1.5 my-1 border-3 border-gray-300 rounded"
-				onClick={() => changePage('back')}
-			>
-				Back
-			</button>
-			<button
-				className="px-7 py-1.5 my-1 border-3 border-gray-300 rounded"
-				onClick={() => changePage('next')}
-			>
-				Next
-			</button>
+			<Button name="Back" onClick={() => changePage('back')} />
+			<Button name="Next" onClick={() => changePage('next')} />
 		</div>
 	);
 }
