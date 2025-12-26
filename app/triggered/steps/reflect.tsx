@@ -8,7 +8,9 @@ interface ChildProps {
 
 export const Reflect: FC<ChildProps> = ({ updateTrigger }) => {
 	const trigger = useContext(TriggerContext);
-	const [selectedValue, setSelectedValue] = useState(trigger.reflect);
+	const [selectedValue, setSelectedValue] = useState<number | undefined>(
+		trigger.reflect ?? undefined,
+	);
 
 	const handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
 		const selectedNumber = parseInt(event.target.value, 10);
@@ -20,7 +22,7 @@ export const Reflect: FC<ChildProps> = ({ updateTrigger }) => {
 		<div className="flex flex-col">
 			<Title text="7. Reflect on the trigger" />
 			<p className="italic">
-				Rate trigger intensity from 1-10 after reflecting
+				Rate trigger intensity from 0-10 after reflecting
 			</p>
 			<select
 				className="w-full appearance-none bg-white px-3 py-3 my-2 pr-10 text-base text-black border border-gray-300 rounded cursor-pointer bg-no-repeat bg-right bg-size-[20px]"
@@ -34,9 +36,8 @@ export const Reflect: FC<ChildProps> = ({ updateTrigger }) => {
 				value={selectedValue}
 				onChange={(e) => handleChange(e)}
 			>
-				<option disabled hidden>
-					Rate your trigger...
-				</option>
+				<option value={-1}>---Rate your trigger---</option>
+				<option value={0}>0</option>
 				<option value={1}>1</option>
 				<option value={2}>2</option>
 				<option value={3}>3</option>

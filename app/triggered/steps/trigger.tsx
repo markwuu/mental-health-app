@@ -1,14 +1,16 @@
 import Title from '@/app/ui/title';
 import { FC, useContext, useState } from 'react';
-import { TriggerContext } from '../page';
+import { TriggerContext, TriggerType } from '../page';
 
 interface ChildProps {
-	updateTrigger: (value: { level: number }) => void;
+	updateTrigger: (value: TriggerType) => void;
 }
 
 export const Trigger: FC<ChildProps> = ({ updateTrigger }) => {
 	const trigger = useContext(TriggerContext);
-	const [selectedValue, setSelectedValue] = useState(trigger.level);
+	const [selectedValue, setSelectedValue] = useState<number | undefined>(
+		trigger.level ?? undefined,
+	);
 
 	const handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
 		const selectedNumber = parseInt(event.target.value, 10);
@@ -32,9 +34,7 @@ export const Trigger: FC<ChildProps> = ({ updateTrigger }) => {
 				value={selectedValue}
 				onChange={(e) => handleChange(e)}
 			>
-				<option disabled hidden>
-					Rate your trigger...
-				</option>
+				<option value={0}>---Rate your trigger---</option>
 				<option value={1}>1</option>
 				<option value={2}>2</option>
 				<option value={3}>3</option>
