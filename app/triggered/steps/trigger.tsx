@@ -15,7 +15,7 @@ export const Trigger: FC<ChildProps> = ({ updateTrigger }) => {
 	const handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
 		const selectedNumber = parseInt(event.target.value, 10);
 		setSelectedValue(selectedNumber);
-		updateTrigger({ level: selectedNumber });
+		updateTrigger({ ...trigger, level: selectedNumber });
 	};
 
 	return (

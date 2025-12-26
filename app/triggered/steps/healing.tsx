@@ -1,10 +1,10 @@
 import Input from '@/app/ui/input';
 import Title from '@/app/ui/title';
 import { FC, useContext, useState } from 'react';
-import { healing, TriggerContext } from '../page';
+import { TriggerContext, TriggerType } from '../page';
 
 interface ChildProps {
-	updateTrigger: (value: { healing: healing }) => void;
+	updateTrigger: (value: TriggerType) => void;
 }
 
 export const Healing: FC<ChildProps> = ({ updateTrigger }) => {
@@ -37,6 +37,7 @@ export const Healing: FC<ChildProps> = ({ updateTrigger }) => {
 				...updateObject,
 			}));
 			updateTrigger({
+				...trigger,
 				healing: {
 					...trigger.healing,
 					...updateObject,
@@ -53,6 +54,7 @@ export const Healing: FC<ChildProps> = ({ updateTrigger }) => {
 			const repeatHealingActivity = healingActivityLabels.includes(inputValue);
 			if (!repeatHealingActivity) {
 				updateTrigger({
+					...trigger,
 					healing: {
 						activities: [
 							...trigger.healing.activities,
@@ -79,6 +81,7 @@ export const Healing: FC<ChildProps> = ({ updateTrigger }) => {
 		);
 
 		updateTrigger({
+			...trigger,
 			healing: {
 				activities: updatedHealingActivities,
 				giveMyself: trigger.healing.giveMyself,

@@ -1,10 +1,10 @@
 import Input from '@/app/ui/input';
 import Title from '@/app/ui/title';
 import { FC, useContext, useState } from 'react';
-import { analyzeTrigger, TriggerContext } from '../page';
+import { TriggerContext, TriggerType } from '../page';
 
 interface ChildProps {
-	updateTrigger: (value: { analyzeTrigger: analyzeTrigger }) => void;
+	updateTrigger: (value: TriggerType) => void;
 }
 
 export const Analyze: FC<ChildProps> = ({ updateTrigger }) => {
@@ -41,6 +41,7 @@ export const Analyze: FC<ChildProps> = ({ updateTrigger }) => {
 			...updateObject,
 		}));
 		updateTrigger({
+			...trigger,
 			analyzeTrigger: {
 				...trigger.analyzeTrigger,
 				...updateObject,
@@ -53,6 +54,7 @@ export const Analyze: FC<ChildProps> = ({ updateTrigger }) => {
 	) => {
 		setSelectedValue(event.target.value);
 		updateTrigger({
+			...trigger,
 			analyzeTrigger: {
 				...trigger.analyzeTrigger,
 				appropriateReaction: event.target.value === 'yes' ? true : false,

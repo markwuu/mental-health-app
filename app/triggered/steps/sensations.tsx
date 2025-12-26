@@ -1,10 +1,10 @@
 import Input from '@/app/ui/input';
 import Title from '@/app/ui/title';
 import { FC, useContext, useState } from 'react';
-import { sensation, TriggerContext } from '../page';
+import { TriggerContext, TriggerType } from '../page';
 
 interface ChildProps {
-	updateTrigger: (value: { sensations: sensation[] }) => void;
+	updateTrigger: (value: TriggerType) => void;
 }
 
 export const Sensations: FC<ChildProps> = ({ updateTrigger }) => {
@@ -25,6 +25,7 @@ export const Sensations: FC<ChildProps> = ({ updateTrigger }) => {
 			const repeatSensation = sensationsLabels.includes(inputValue);
 			if (!repeatSensation) {
 				updateTrigger({
+					...trigger,
 					sensations: [
 						...trigger.sensations,
 						{ label: inputValue, checked: true },
@@ -44,7 +45,7 @@ export const Sensations: FC<ChildProps> = ({ updateTrigger }) => {
 			return sensation;
 		});
 
-		updateTrigger({ sensations: updatedSensations });
+		updateTrigger({ ...trigger, sensations: updatedSensations });
 	};
 
 	return (

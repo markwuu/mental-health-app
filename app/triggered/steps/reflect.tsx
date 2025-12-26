@@ -1,9 +1,9 @@
 import Title from '@/app/ui/title';
 import { FC, useContext, useState } from 'react';
-import { TriggerContext } from '../page';
+import { TriggerContext, TriggerType } from '../page';
 
 interface ChildProps {
-	updateTrigger: (value: { reflect: number }) => void;
+	updateTrigger: (value: TriggerType) => void;
 }
 
 export const Reflect: FC<ChildProps> = ({ updateTrigger }) => {
@@ -15,7 +15,7 @@ export const Reflect: FC<ChildProps> = ({ updateTrigger }) => {
 	const handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
 		const selectedNumber = parseInt(event.target.value, 10);
 		setSelectedValue(selectedNumber);
-		updateTrigger({ reflect: selectedNumber });
+		updateTrigger({ ...trigger, reflect: selectedNumber });
 	};
 
 	return (

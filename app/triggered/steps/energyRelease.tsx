@@ -1,10 +1,10 @@
 import Input from '@/app/ui/input';
 import Title from '@/app/ui/title';
 import { FC, useContext, useState } from 'react';
-import { energyRelease, TriggerContext } from '../page';
+import { TriggerContext, TriggerType } from '../page';
 
 interface ChildProps {
-	updateTrigger: (value: { energyRelease: energyRelease[] }) => void;
+	updateTrigger: (value: TriggerType) => void;
 }
 
 export const EnergyRelease: FC<ChildProps> = ({ updateTrigger }) => {
@@ -25,6 +25,7 @@ export const EnergyRelease: FC<ChildProps> = ({ updateTrigger }) => {
 			const repeatEnergyRelease = energyReleaseLabels.includes(inputValue);
 			if (!repeatEnergyRelease) {
 				updateTrigger({
+					...trigger,
 					energyRelease: [
 						...trigger.energyRelease,
 						{ label: inputValue, checked: true },
@@ -44,7 +45,7 @@ export const EnergyRelease: FC<ChildProps> = ({ updateTrigger }) => {
 			return energyRelease;
 		});
 
-		updateTrigger({ energyRelease: updatedEnergyRelease });
+		updateTrigger({ ...trigger, energyRelease: updatedEnergyRelease });
 	};
 
 	return (
