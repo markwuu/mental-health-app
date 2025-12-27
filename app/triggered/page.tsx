@@ -108,7 +108,6 @@ export default function WorkingThroughATriggerPage() {
 	const [trigger, setTrigger] = useState<TriggerType>(emptyTrigger);
 	const [backButtonDisabled] = useState<boolean>(false);
 	const [nextButtonDisabled, setNextButtonDisabled] = useState<boolean>(true);
-	// console.log(`🚀 ~ WorkingThroughATriggerPage ~ trigger:`, trigger);
 
 	// useEffect to check localstorage and set trigger with user input values
 
@@ -146,8 +145,6 @@ export default function WorkingThroughATriggerPage() {
 
 		if (type === 'updateTrigger') {
 			setNextButtonDisabled(true);
-
-			console.log('currentPage', currentPage);
 			switch (currentPage) {
 				case 'Trigger':
 					if (levelAnswered) setNextButtonDisabled(false);
@@ -178,7 +175,6 @@ export default function WorkingThroughATriggerPage() {
 
 		if (type === 'changePage:next') {
 			setNextButtonDisabled(true);
-			console.log(`🚀 ~ handleDisableButton ~ currentPage:`, currentPage);
 			if (currentPage === 'Trigger' && typeof trigger.distance === 'boolean') {
 				setNextButtonDisabled(false);
 			}
