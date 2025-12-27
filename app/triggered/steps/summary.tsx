@@ -16,14 +16,17 @@ export const Summary = () => {
 	} = trigger;
 
 	const finalPercent = () => {
-		const difference = ((reflect - level) / level) * 100;
-		if (difference === 0) {
-			return `${level} → ${reflect} (${Math.abs(difference)}% change)`;
-		} else if (difference < 0) {
-			return `${level} → ${reflect} (${Math.abs(difference)}% decrease)`;
-		} else if (difference > 0) {
-			return `${level} → ${reflect} (${Math.abs(difference)}% increase)`;
+		if (reflect && level) {
+			const difference = ((reflect - level) / level) * 100;
+			if (difference === 0) {
+				return `${level} → ${reflect} (${Math.abs(difference)}% change)`;
+			} else if (difference < 0) {
+				return `${level} → ${reflect} (${Math.abs(difference)}% decrease)`;
+			} else if (difference > 0) {
+				return `${level} → ${reflect} (${Math.abs(difference)}% increase)`;
+			}
 		}
+		return;
 	};
 
 	return (
