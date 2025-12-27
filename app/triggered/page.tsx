@@ -147,21 +147,29 @@ export default function WorkingThroughATriggerPage() {
 		if (type === 'updateTrigger') {
 			setNextButtonDisabled(true);
 
+			console.log('currentPage', currentPage);
 			switch (currentPage) {
 				case 'Trigger':
 					if (levelAnswered) setNextButtonDisabled(false);
+					break;
 				case 'Distance':
 					if (distanceAnswered) setNextButtonDisabled(false);
+					break;
 				case 'Sensations':
 					if (sensationsAnswered) setNextButtonDisabled(false);
+					break;
 				case 'EnergyRelease':
 					if (energyReleaseAnswered) setNextButtonDisabled(false);
+					break;
 				case 'Analyze':
 					if (analyzeTriggerAnswered) setNextButtonDisabled(false);
+					break;
 				case 'Healing':
 					if (healingAnswered) setNextButtonDisabled(false);
+					break;
 				case 'Reflect':
 					if (reflectAnswered) setNextButtonDisabled(false);
+					break;
 
 				default:
 					return null;
