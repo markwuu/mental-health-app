@@ -81,7 +81,7 @@ const healingActivityList = [
 	{ label: 'meditate', checked: false },
 ];
 
-const emptyTrigger = {
+const emptyTrigger: TriggerType = {
 	level: undefined,
 	distance: null,
 	sensations: sensationsList,
