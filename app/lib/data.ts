@@ -1,0 +1,19 @@
+import postgres from 'postgres';
+import { TriggerType } from './definitions';
+const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
+
+export async function fetchTriggers() {
+	try {
+		const data = await sql<TriggerType[]>`
+			SELECT "user".name, trigger.trigger_level, trigger.distance, trigger.sensations, trigger.energy_release, trigger.analyze_trigger, trigger.healing, trigger.reflection_level, trigger.user_id
+			FROM "user"
+			JOIN trigger ON trigger.user_id = "user".id
+			WHERE "user".id = 1;
+		`;
+
+		return data;
+	} catch (error) {
+		console.error('Database Error:', error);
+		throw new Error('Failed to fetch revenue data.');
+	}
+}
