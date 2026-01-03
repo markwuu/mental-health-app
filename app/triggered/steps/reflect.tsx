@@ -9,13 +9,13 @@ interface ChildProps {
 export const Reflect: FC<ChildProps> = ({ updateTrigger }) => {
 	const trigger = useContext(TriggerContext);
 	const [selectedValue, setSelectedValue] = useState<number | undefined>(
-		trigger.reflect ?? undefined,
+		trigger.reflectionLevel ?? undefined,
 	);
 
 	const handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
 		const selectedNumber = parseInt(event.target.value, 10);
 		setSelectedValue(selectedNumber);
-		updateTrigger({ ...trigger, reflect: selectedNumber });
+		updateTrigger({ ...trigger, reflectionLevel: selectedNumber });
 	};
 
 	return (

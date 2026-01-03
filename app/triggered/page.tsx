@@ -42,13 +42,13 @@ export type healing = {
 };
 
 export interface TriggerType {
-	level: number | undefined;
+	triggerLevel: number | undefined;
 	distance: boolean | null;
 	sensations: sensation[];
 	energyRelease: energyRelease[];
 	analyzeTrigger: analyzeTrigger;
 	healing: healing;
-	reflect: number | undefined;
+	reflectionLevel: number | undefined;
 }
 
 const sensationsList = [
@@ -82,7 +82,7 @@ const healingActivityList = [
 ];
 
 const emptyTrigger: TriggerType = {
-	level: undefined,
+	triggerLevel: undefined,
 	distance: null,
 	sensations: sensationsList,
 	energyRelease: energyReleaseList,
@@ -97,7 +97,7 @@ const emptyTrigger: TriggerType = {
 		giveMyself: '',
 		givePartner: '',
 	},
-	reflect: undefined,
+	reflectionLevel: undefined,
 };
 
 export const TriggerContext = createContext<TriggerType>(emptyTrigger);
@@ -113,16 +113,16 @@ export default function WorkingThroughATriggerPage() {
 
 	const handleDisableButton = (value: TriggerType, type: string) => {
 		const {
-			level,
+			triggerLevel,
 			distance,
 			sensations,
 			energyRelease,
 			analyzeTrigger,
 			healing,
-			reflect,
+			reflectionLevel,
 		} = value;
 
-		const levelAnswered = level && level > 0;
+		const triggerLevelAnswered = triggerLevel && triggerLevel > 0;
 		const distanceAnswered = typeof distance === 'boolean';
 		const sensationsAnswered = sensations
 			.map((sensation) => (sensation.checked === true ? true : false))
@@ -141,13 +141,14 @@ export default function WorkingThroughATriggerPage() {
 				.includes(true) &&
 			healing.giveMyself &&
 			healing.givePartner;
-		const reflectAnswered = reflect !== undefined && reflect >= 0;
+		const reflectionLevelAnswered =
+			reflectionLevel !== undefined && reflectionLevel >= 0;
 
 		if (type === 'updateTrigger') {
 			setNextButtonDisabled(true);
 			switch (currentPage) {
 				case 'Trigger':
-					if (levelAnswered) setNextButtonDisabled(false);
+					if (triggerLevelAnswered) setNextButtonDisabled(false);
 					break;
 				case 'Distance':
 					if (distanceAnswered) setNextButtonDisabled(false);
@@ -165,7 +166,7 @@ export default function WorkingThroughATriggerPage() {
 					if (healingAnswered) setNextButtonDisabled(false);
 					break;
 				case 'Reflect':
-					if (reflectAnswered) setNextButtonDisabled(false);
+					if (reflectionLevelAnswered) setNextButtonDisabled(false);
 					break;
 
 				default:
@@ -190,7 +191,7 @@ export default function WorkingThroughATriggerPage() {
 			if (currentPage === 'Analyze' && healingAnswered) {
 				setNextButtonDisabled(false);
 			}
-			if (currentPage === 'Healing' && reflectAnswered) {
+			if (currentPage === 'Healing' && reflectionLevelAnswered) {
 				setNextButtonDisabled(false);
 			}
 			if (currentPage === 'Reflect') {

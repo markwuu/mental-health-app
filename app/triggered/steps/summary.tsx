@@ -6,24 +6,31 @@ import Input from '@/app/ui/input';
 export const Summary = () => {
 	const trigger = useContext(TriggerContext);
 	const {
-		level,
+		triggerLevel,
 		distance,
 		sensations,
 		energyRelease,
 		analyzeTrigger,
 		healing,
-		reflect,
+		reflectionLevel,
 	} = trigger;
 
 	const finalPercent = () => {
-		if (reflect && level) {
-			const difference = ((reflect - level) / level) * 100;
+		if (reflectionLevel && triggerLevel) {
+			const difference =
+				((reflectionLevel - triggerLevel) / triggerLevel) * 100;
 			if (difference === 0) {
-				return `${level} → ${reflect} (${Math.abs(difference)}% change)`;
+				return `${triggerLevel} → ${reflectionLevel} (${Math.abs(
+					difference,
+				)}% change)`;
 			} else if (difference < 0) {
-				return `${level} → ${reflect} (${Math.abs(difference)}% decrease)`;
+				return `${triggerLevel} → ${reflectionLevel} (${Math.abs(
+					difference,
+				)}% decrease)`;
 			} else if (difference > 0) {
-				return `${level} → ${reflect} (${Math.abs(difference)}% increase)`;
+				return `${triggerLevel} → ${reflectionLevel} (${Math.abs(
+					difference,
+				)}% increase)`;
 			}
 		}
 		return;
@@ -36,7 +43,7 @@ export const Summary = () => {
 				1. Acknowledge the trigger
 			</h2>
 			<p className="italic">Rate trigger intensity from 1-10</p>
-			<p> {level} </p>
+			<p> {triggerLevel} </p>
 			<h2 className="pt-7 font-extrabold text-lg">2. Create Distance</h2>
 			<p className="italic">
 				Are you able to physically remove yourself from the trigger?
