@@ -1,7 +1,8 @@
 import Input from '@/app/ui/input';
 import Title from '@/app/ui/title';
 import { FC, useContext, useState } from 'react';
-import { TriggerContext, TriggerType } from '../page';
+import { TriggerContext } from '../page';
+import { TriggerType } from '@/app/lib/definitions';
 
 interface ChildProps {
 	updateTrigger: (value: TriggerType) => void;
