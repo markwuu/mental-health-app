@@ -1,4 +1,4 @@
-export default function Buttohn({
+export default function Button({
 	styles,
 	name,
 	onClick,
