@@ -72,8 +72,6 @@ export default function WorkingThroughATriggerPage() {
 	const [backButtonDisabled] = useState<boolean>(false);
 	const [nextButtonDisabled, setNextButtonDisabled] = useState<boolean>(true);
 
-	// useEffect to check localstorage and set trigger with user input values
-
 	const handleDisableButton = (value: TriggerType, type: string) => {
 		const {
 			triggerLevel,
