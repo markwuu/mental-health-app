@@ -4,7 +4,7 @@ import { Trigger } from './steps/trigger';
 import { Distance } from './steps/distance';
 import { Sensations } from './steps/sensations';
 import { Summary } from './steps/summary';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import NavigateButtons from './components/navigateButtons';
 import { useRouter } from 'next/navigation';
 import { createContext } from 'react';
@@ -13,6 +13,8 @@ import { Analyze } from './steps/analyze';
 import { Healing } from './steps/healing';
 import { Reflect } from './steps/reflect';
 import { TriggerType } from '../lib/definitions';
+import Button from '../ui/button';
+import { createTrigger } from '../lib/actions';
 
 const sensationsList = [
 	{ label: 'sweating', checked: false },
@@ -71,6 +73,7 @@ export default function WorkingThroughATriggerPage() {
 	const [trigger, setTrigger] = useState<TriggerType>(emptyTrigger);
 	const [backButtonDisabled] = useState<boolean>(false);
 	const [nextButtonDisabled, setNextButtonDisabled] = useState<boolean>(true);
+	const [isPending, startTransition] = useTransition();
 
 	const handleDisableButton = (value: TriggerType, type: string) => {
 		const {
@@ -220,6 +223,12 @@ export default function WorkingThroughATriggerPage() {
 		}
 	};
 
+	const postTriggerData = () => {
+		startTransition(async () => {
+			await createTrigger('1', trigger);
+		});
+	};
+
 	return (
 		<TriggerContext.Provider value={trigger}>
 			<div className="space-y-8 p-20 max-w-4xl w-187.5 mx-auto py-16">
@@ -227,11 +236,16 @@ export default function WorkingThroughATriggerPage() {
 					Working through a trigger
 				</h1>
 				{displayStep()}
-				<NavigateButtons
-					backButtonDisabled={backButtonDisabled}
-					nextButtonDisabled={nextButtonDisabled}
-					changePage={changePage}
-				/>
+
+				{currentPage === 'Summary' ? (
+					<Button name="submit" onClick={postTriggerData} />
+				) : (
+					<NavigateButtons
+						backButtonDisabled={backButtonDisabled}
+						nextButtonDisabled={nextButtonDisabled}
+						changePage={changePage}
+					/>
+				)}
 			</div>
 		</TriggerContext.Provider>
 	);
