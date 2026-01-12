@@ -2,6 +2,21 @@ import postgres from 'postgres';
 import { TriggerType } from './definitions';
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
+export async function fetchProfile() {
+	try {
+		const data = await sql`
+			SELECT "user".name
+			FROM "user"
+			WHERE "user".id = 1;
+		`;
+
+		return data;
+	} catch (error) {
+		console.error('Database Error:', error);
+		throw new Error('Failed to fetch profile data.');
+	}
+}
+
 export async function fetchTriggers() {
 	try {
 		const data = await sql<TriggerType[]>`
@@ -14,6 +29,6 @@ export async function fetchTriggers() {
 		return data;
 	} catch (error) {
 		console.error('Database Error:', error);
-		throw new Error('Failed to fetch revenue data.');
+		throw new Error('Failed to fetch trigger data.');
 	}
 }
