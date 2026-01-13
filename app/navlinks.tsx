@@ -19,7 +19,7 @@ export default function Navlinks({ name }: { name: string }) {
 	};
 
 	return (
-		<ul className="flex gap-8">
+		<ul className="flex gap-8 tracking-wide">
 			<li
 				className={`${pathname === '/' ? 'underline underline-offset-6' : ''}`}
 			>
