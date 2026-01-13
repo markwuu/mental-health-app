@@ -10,38 +10,44 @@ export default function Navlinks({ name }: { name: string }) {
 	const getGreetingText = () => {
 		const hour = currentTime.getHours();
 		if (hour >= 5 && hour < 12) {
-			return `Morning, ${name}!`;
+			return `Good Morning, ${name}`;
 		} else if (hour >= 12 && hour < 18) {
-			return `Afternoon, ${name}!`;
+			return `Good Afternoon, ${name}`;
 		} else {
-			return `Evening, ${name}!`;
+			return `Good Evening, ${name}`;
 		}
 	};
 
 	return (
-		<ul className="flex gap-8 tracking-wide">
+		<ul className="flex gap-8 tracking-wide ">
 			<li
-				className={`${pathname === '/' ? 'underline underline-offset-6' : ''}`}
+				className={`uppercase font-mono ${
+					pathname === '/' ? 'underline underline-offset-6 font-bold' : ''
+				}`}
 			>
 				<Link href="/">Home</Link>
 			</li>
 			<li
-				className={`${
+				className={`uppercase font-mono ${
 					pathname === '/cognitive-behavioral-therapy'
-						? 'underline underline-offset-6'
+						? 'underline underline-offset-6 font-bold'
 						: ''
 				}`}
 			>
 				<Link href="/cognitive-behavioral-therapy">CBT</Link>
 			</li>
 			<li
-				className={`${
-					pathname === '/triggered' ? 'underline underline-offset-6' : ''
+				className={`uppercase font-mono ${
+					pathname === '/triggered'
+						? 'underline underline-offset-6 font-bold'
+						: ''
 				}`}
 			>
 				<Link href="/triggered">Triggered</Link>
 			</li>
-			<li className="ml-auto">{getGreetingText()}</li>
+			<li className="ml-auto font-mono">
+				<span className="italic">{getGreetingText()} </span>🖤
+			</li>
 		</ul>
 	);
 }
