@@ -6,21 +6,11 @@ import { Evidence } from './steps/evidence';
 import { Reframed } from './steps/reframed';
 import Summary from './steps/summary';
 import { useState } from 'react';
-import NavigateButtons from './components/navigateButtons';
 import { useRouter } from 'next/navigation';
 import { createContext } from 'react';
-
-export type distortion = {
-	label: string;
-	checked: boolean;
-};
-
-export type CBTContextType = {
-	thought: string;
-	distortions: distortion[];
-	evidence: string;
-	reframed: string;
-};
+import NavigateButtons from '../components/navigateButtons';
+import { CbtType } from '../lib/definitions';
+import Button from '../ui/button';
 
 const distortionList = [
 	{ label: 'catastrophizing', checked: false },
@@ -47,20 +37,67 @@ const emptyCBT = {
 	reframed: '',
 };
 
-export const CBTContext = createContext<CBTContextType>(emptyCBT);
+export const CBTContext = createContext<CbtType>(emptyCBT);
 
 export default function CognitiveBehavioralTherapyPage() {
 	const router = useRouter();
 	const [currentPage, setCurrentPage] = useState('Thought');
-	const [cbt, setCbt] = useState<CBTContextType>(emptyCBT);
+	const [cbt, setCbt] = useState<CbtType>(emptyCBT);
+	const [backButtonDisabled] = useState<boolean>(false);
+	const [nextButtonDisabled, setNextButtonDisabled] = useState<boolean>(true);
 
-	const updateCbt = (
-		value:
-			| { thought: string }
-			| { distortions: distortion[] }
-			| { evidence: string }
-			| { reframed: string },
-	) => {
+	const handleDisableButton = (value: CbtType, type: string) => {
+		const { thought, distortions, evidence, reframed } = value;
+
+		const thoughtAnswered = thought && thought.length > 0;
+		const distortionsAnswered = distortions
+			.map((distortion) => (distortion.checked === true ? true : false))
+			.includes(true);
+		const evidenceAnswered = evidence && evidence.length > 0;
+		const reframedAnswered = reframed && reframed.length > 0;
+
+		if (type === 'updateCbt') {
+			setNextButtonDisabled(true);
+			switch (currentPage) {
+				case 'Thought':
+					if (thoughtAnswered) setNextButtonDisabled(false);
+					break;
+				case 'Distortion':
+					if (distortionsAnswered) setNextButtonDisabled(false);
+					break;
+				case 'Evidence':
+					if (evidenceAnswered) setNextButtonDisabled(false);
+					break;
+				case 'Reframed':
+					if (reframedAnswered) setNextButtonDisabled(false);
+					break;
+
+				default:
+					return null;
+			}
+		}
+
+		if (type === 'changePage:next') {
+			setNextButtonDisabled(true);
+			if (currentPage === 'Thought' && distortionsAnswered) {
+				setNextButtonDisabled(false);
+			}
+			if (currentPage === 'Distortion' && evidenceAnswered) {
+				setNextButtonDisabled(false);
+			}
+			if (currentPage === 'Evidence' && reframedAnswered) {
+				setNextButtonDisabled(false);
+			}
+			if (currentPage === 'Reframed') {
+				setNextButtonDisabled(false);
+			}
+		} else if (type === 'changePage:back') {
+			setNextButtonDisabled(false);
+		}
+	};
+
+	const updateCbt = (value: CbtType) => {
+		handleDisableButton(value, 'updateCbt');
 		setCbt((prev) => ({ ...prev, ...value }));
 	};
 
@@ -76,6 +113,8 @@ export default function CognitiveBehavioralTherapyPage() {
 	};
 
 	const changePage = (direction: 'next' | 'back') => {
+		handleDisableButton(cbt, `changePage:${direction}`);
+
 		switch (direction) {
 			case 'next':
 				if (currentPage === 'Thought') return setCurrentPage('Distortion');
@@ -102,7 +141,15 @@ export default function CognitiveBehavioralTherapyPage() {
 					Cognitive Behavior Therapy
 				</h1>
 				{displayStep()}
-				<NavigateButtons changePage={changePage} />
+				{currentPage === 'Summary' ? (
+					<Button name="Submit" onClick={() => {}} />
+				) : (
+					<NavigateButtons
+						backButtonDisabled={backButtonDisabled}
+						nextButtonDisabled={nextButtonDisabled}
+						changePage={changePage}
+					/>
+				)}
 			</div>
 		</CBTContext.Provider>
 	);
