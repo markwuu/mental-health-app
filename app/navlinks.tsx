@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 export default function Navlinks({ name }: { name: string }) {
-	console.log(`🚀 ~ Navlinks ~ name:`, name);
 	const pathname = usePathname();
 	const currentTime = new Date();
 
