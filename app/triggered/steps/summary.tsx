@@ -39,9 +39,7 @@ export const Summary = () => {
 	return (
 		<div className="flex flex-col">
 			<Title text="Summary" />
-			<h2 className="pt-4 font-extrabold text-lg">
-				1. Acknowledge the trigger
-			</h2>
+			<h2 className="font-extrabold text-lg">1. Acknowledge the trigger</h2>
 			<p className="italic">Rate trigger intensity from 1-10</p>
 			<p> {triggerLevel} </p>
 			<h2 className="pt-7 font-extrabold text-lg">2. Create Distance</h2>

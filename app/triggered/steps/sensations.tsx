@@ -52,14 +52,14 @@ export const Sensations: FC<ChildProps> = ({ updateTrigger }) => {
 	return (
 		<div className="flex flex-col">
 			<Title text="3. Body Sensations" />
-			<p className="italic">Add a body sensation</p>
+			<p className="italic">Add a new body sensation</p>
 			<div className="flex gap-6 pb-5">
 				<Input
 					type="text"
 					id="thought"
 					name="thought"
 					value={inputValue}
-					placeholder="Add body sensation"
+					placeholder="Enter sensation here"
 					handleChange={(e) => handleInputChange(e)}
 				/>
 				<button

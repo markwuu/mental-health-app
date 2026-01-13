@@ -103,7 +103,7 @@ export const Healing: FC<ChildProps> = ({ updateTrigger }) => {
 							id="thought"
 							name="thought"
 							value={inputValue}
-							placeholder="Add activity here"
+							placeholder="Enter activity here"
 							handleChange={(e) => handleInputChange(e)}
 						/>
 						<button

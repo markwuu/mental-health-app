@@ -59,7 +59,7 @@ export const EnergyRelease: FC<ChildProps> = ({ updateTrigger }) => {
 					id="thought"
 					name="thought"
 					value={inputValue}
-					placeholder="Add activity here"
+					placeholder="Enter activity here"
 					handleChange={(e) => handleInputChange(e)}
 				/>
 				<button
@@ -70,7 +70,7 @@ export const EnergyRelease: FC<ChildProps> = ({ updateTrigger }) => {
 				</button>
 			</div>
 			<p className="italic">
-				Select an activity to physically release the negative energy in you
+				Select an activity to physically release the energy stored inside you
 			</p>
 			<div className="grid grid-cols-3 gap-2 pt-1">
 				{trigger.energyRelease.map(
