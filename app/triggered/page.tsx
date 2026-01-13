@@ -15,6 +15,7 @@ import { TriggerType } from '../lib/definitions';
 import Button from '../ui/button';
 import { createTrigger } from '../lib/actions';
 import NavigateButtons from '../components/navigateButtons';
+import Header from '../ui/header';
 
 const sensationsList = [
 	{ label: 'sweating', checked: false },
@@ -232,9 +233,7 @@ export default function WorkingThroughATriggerPage() {
 	return (
 		<TriggerContext.Provider value={trigger}>
 			<div className="space-y-8 p-20 max-w-4xl w-187.5 mx-auto py-16">
-				<h1 className="text-3xl text-center tracking-wide">
-					Working through a trigger
-				</h1>
+				<Header text="Working Through a Trigger" />
 				{displayStep()}
 				{currentPage === 'Summary' ? (
 					<Button name="Submit" onClick={postTriggerData} />

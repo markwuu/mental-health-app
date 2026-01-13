@@ -12,6 +12,7 @@ import NavigateButtons from '../components/navigateButtons';
 import { CbtType } from '../lib/definitions';
 import Button from '../ui/button';
 import { createCbt } from '../lib/actions';
+import Header from '../ui/header';
 
 const distortionList = [
 	{ label: 'catastrophizing', checked: false },
@@ -145,9 +146,7 @@ export default function CognitiveBehavioralTherapyPage() {
 	return (
 		<CBTContext.Provider value={cbt}>
 			<div className="space-y-8 p-20 max-w-4xl w-187.5 mx-auto py-16">
-				<h1 className="text-3xl text-center tracking-wide">
-					Cognitive Behavior Therapy
-				</h1>
+				<Header text="Cognitive Behavior Therapy" />
 				{displayStep()}
 				{currentPage === 'Summary' ? (
 					<Button name="Submit" onClick={postTriggerData} />
