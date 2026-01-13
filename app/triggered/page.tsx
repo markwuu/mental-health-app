@@ -234,6 +234,7 @@ export default function WorkingThroughATriggerPage() {
 		<TriggerContext.Provider value={trigger}>
 			<div className="space-y-8 p-20 max-w-4xl w-187.5 mx-auto py-16">
 				<Header text="Working Through a Trigger" />
+				{isPending ? <span>Sending data...</span> : null}
 				{displayStep()}
 				{currentPage === 'Summary' ? (
 					<Button name="Submit" onClick={postTriggerData} />
