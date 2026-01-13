@@ -19,13 +19,16 @@ export const Thought: FC<ChildProps> = ({ updateCbt }) => {
 
 	return (
 		<div className="flex flex-col">
-			<Title text="1. Add Your Thought" />
+			<Title text="1. Automatic Thought" />
+			<p className="italic">
+				What is the automatic thought you are experiencing?
+			</p>
 			<Input
 				type="text"
 				id="thought"
 				name="thought"
 				value={inputValue}
-				placeholder="Enter your thought here"
+				placeholder="Enter thought here"
 				handleChange={(e) => handleChange(e)}
 			/>
 		</div>

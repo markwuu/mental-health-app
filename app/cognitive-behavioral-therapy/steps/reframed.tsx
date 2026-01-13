@@ -19,13 +19,16 @@ export const Reframed: FC<ChildProps> = ({ updateCbt }) => {
 
 	return (
 		<div className="flex flex-col">
-			<Title text="4. How can you reframe this thought?" />
+			<Title text="4. Reframed Thought" />
+			<p className="italic">
+				Is there a way to reframe your thought in a more positive way?
+			</p>
 			<Input
 				type="text"
 				id="evidence"
 				name="evidence"
 				value={inputValue}
-				placeholder="Enter your evidence here"
+				placeholder="Enter your reframed thought here"
 				handleChange={(e) => handleChange(e)}
 			/>
 		</div>

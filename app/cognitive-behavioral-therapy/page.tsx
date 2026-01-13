@@ -25,11 +25,11 @@ const distortionList = [
 	{ label: 'all-or-nothing thinking', checked: false },
 	{ label: 'personalization', checked: false },
 	{ label: 'blaming', checked: false },
-	{ label: 'jumping to conclusions', checked: false },
 	{ label: 'mind reading', checked: false },
 	{ label: 'fortune telling', checked: false },
-	{ label: 'overgeneralization', checked: false },
 	{ label: 'labeling', checked: false },
+	{ label: 'overgeneralization', checked: false },
+	{ label: 'jumping to conclusions', checked: false },
 ];
 
 const emptyCBT = {

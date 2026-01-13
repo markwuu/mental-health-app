@@ -19,13 +19,16 @@ export const Evidence: FC<ChildProps> = ({ updateCbt }) => {
 
 	return (
 		<div className="flex flex-col">
-			<Title text="3. Is there any evidence that challenges this?" />
+			<Title text="3. Evidence to the contrary" />
+			<p className="italic">
+				List any evidence that challenges the automatic thought you have
+			</p>
 			<Input
 				type="text"
 				id="thought"
 				name="thought"
 				value={inputValue}
-				placeholder="Enter your thought here"
+				placeholder="Enter your evidence here"
 				handleChange={(e) => handleChange(e)}
 			/>
 		</div>

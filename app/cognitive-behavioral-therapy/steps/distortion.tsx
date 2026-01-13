@@ -25,8 +25,11 @@ export const Distortion: FC<ChildProps> = ({ updateCbt }) => {
 
 	return (
 		<div className="flex flex-col">
-			<Title text="2. Select a Distortion" />
-			<div className="grid grid-cols-3 gap-2">
+			<Title text="2. Cognitive Distortions" />
+			<p className="italic">
+				Select all the distortions that apply to your automatic thought
+			</p>
+			<div className="grid grid-cols-3 gap-2 pt-1">
 				{cbt.distortions.map(
 					(distortion: { label: string; checked: boolean }) => {
 						return (
