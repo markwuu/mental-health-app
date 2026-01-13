@@ -8,6 +8,11 @@ export type energyRelease = {
 	checked: boolean;
 };
 
+export type distortion = {
+	label: string;
+	checked: boolean;
+};
+
 export type analyzeTrigger = {
 	experiencing: string;
 	story: string;
@@ -34,4 +39,11 @@ export interface TriggerType {
 	analyzeTrigger: analyzeTrigger;
 	healing: healing;
 	reflectionLevel: number | undefined;
+}
+
+export interface CbtType {
+	thought: string;
+	distortions: distortion[];
+	evidence: string;
+	reframed: string;
 }
