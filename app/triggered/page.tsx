@@ -5,7 +5,6 @@ import { Distance } from './steps/distance';
 import { Sensations } from './steps/sensations';
 import { Summary } from './steps/summary';
 import { useState, useTransition } from 'react';
-import NavigateButtons from './components/navigateButtons';
 import { useRouter } from 'next/navigation';
 import { createContext } from 'react';
 import { EnergyRelease } from './steps/energyRelease';
@@ -15,6 +14,7 @@ import { Reflect } from './steps/reflect';
 import { TriggerType } from '../lib/definitions';
 import Button from '../ui/button';
 import { createTrigger } from '../lib/actions';
+import NavigateButtons from '../components/navigateButtons';
 
 const sensationsList = [
 	{ label: 'sweating', checked: false },
