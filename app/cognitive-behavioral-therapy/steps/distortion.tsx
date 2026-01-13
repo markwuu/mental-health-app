@@ -1,10 +1,11 @@
 import Input from '@/app/ui/input';
 import Title from '@/app/ui/title';
 import { FC, useContext } from 'react';
-import { CBTContext, distortion } from '../page';
+import { CBTContext } from '../page';
+import { CbtType } from '@/app/lib/definitions';
 
 interface ChildProps {
-	updateCbt: (value: { distortions: distortion[] }) => void;
+	updateCbt: (value: CbtType) => void;
 }
 
 export const Distortion: FC<ChildProps> = ({ updateCbt }) => {
@@ -19,7 +20,7 @@ export const Distortion: FC<ChildProps> = ({ updateCbt }) => {
 			return distortion;
 		});
 
-		updateCbt({ distortions: updatedDistortion });
+		updateCbt({ ...cbt, distortions: updatedDistortion });
 	};
 
 	return (

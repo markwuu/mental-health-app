@@ -2,9 +2,10 @@ import Input from '@/app/ui/input';
 import Title from '@/app/ui/title';
 import { FC, useContext, useState } from 'react';
 import { CBTContext } from '../page';
+import { CbtType } from '@/app/lib/definitions';
 
 interface ChildProps {
-	updateCbt: (value: { thought: string }) => void;
+	updateCbt: (value: CbtType) => void;
 }
 
 export const Thought: FC<ChildProps> = ({ updateCbt }) => {
@@ -13,7 +14,7 @@ export const Thought: FC<ChildProps> = ({ updateCbt }) => {
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
 		setInputValue(event.target.value);
-		updateCbt({ thought: event.target.value });
+		updateCbt({ ...cbt, thought: event.target.value });
 	};
 
 	return (

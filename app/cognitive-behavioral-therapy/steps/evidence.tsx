@@ -2,9 +2,10 @@ import Input from '@/app/ui/input';
 import Title from '@/app/ui/title';
 import { FC, useContext, useState } from 'react';
 import { CBTContext } from '../page';
+import { CbtType } from '@/app/lib/definitions';
 
 interface ChildProps {
-	updateCbt: (value: { evidence: string }) => void;
+	updateCbt: (value: CbtType) => void;
 }
 
 export const Evidence: FC<ChildProps> = ({ updateCbt }) => {
@@ -13,7 +14,7 @@ export const Evidence: FC<ChildProps> = ({ updateCbt }) => {
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
 		setInputValue(event.target.value);
-		updateCbt({ evidence: event.target.value });
+		updateCbt({ ...cbt, evidence: event.target.value });
 	};
 
 	return (

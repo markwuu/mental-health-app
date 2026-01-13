@@ -236,9 +236,8 @@ export default function WorkingThroughATriggerPage() {
 					Working through a trigger
 				</h1>
 				{displayStep()}
-
 				{currentPage === 'Summary' ? (
-					<Button name="submit" onClick={postTriggerData} />
+					<Button name="Submit" onClick={postTriggerData} />
 				) : (
 					<NavigateButtons
 						backButtonDisabled={backButtonDisabled}
