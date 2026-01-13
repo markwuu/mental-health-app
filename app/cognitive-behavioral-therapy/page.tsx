@@ -5,12 +5,13 @@ import { Distortion } from './steps/distortion';
 import { Evidence } from './steps/evidence';
 import { Reframed } from './steps/reframed';
 import Summary from './steps/summary';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { createContext } from 'react';
 import NavigateButtons from '../components/navigateButtons';
 import { CbtType } from '../lib/definitions';
 import Button from '../ui/button';
+import { createCbt } from '../lib/actions';
 
 const distortionList = [
 	{ label: 'catastrophizing', checked: false },
@@ -45,6 +46,7 @@ export default function CognitiveBehavioralTherapyPage() {
 	const [cbt, setCbt] = useState<CbtType>(emptyCBT);
 	const [backButtonDisabled] = useState<boolean>(false);
 	const [nextButtonDisabled, setNextButtonDisabled] = useState<boolean>(true);
+	const [isPending, startTransition] = useTransition();
 
 	const handleDisableButton = (value: CbtType, type: string) => {
 		const { thought, distortions, evidence, reframed } = value;
@@ -134,6 +136,12 @@ export default function CognitiveBehavioralTherapyPage() {
 		}
 	};
 
+	const postTriggerData = () => {
+		startTransition(async () => {
+			await createCbt('1', cbt);
+		});
+	};
+
 	return (
 		<CBTContext.Provider value={cbt}>
 			<div className="space-y-8 p-20 max-w-4xl w-187.5 mx-auto py-16">
@@ -142,7 +150,7 @@ export default function CognitiveBehavioralTherapyPage() {
 				</h1>
 				{displayStep()}
 				{currentPage === 'Summary' ? (
-					<Button name="Submit" onClick={() => {}} />
+					<Button name="Submit" onClick={postTriggerData} />
 				) : (
 					<NavigateButtons
 						backButtonDisabled={backButtonDisabled}

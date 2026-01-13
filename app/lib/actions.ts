@@ -39,3 +39,23 @@ export async function createTrigger(userId: string, data: any) {
 
 	redirect('/triggered');
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function createCbt(userId: string, data: any) {
+	const { thought, distortions, evidence, reframed } = data;
+
+	try {
+		await sql`
+			INSERT INTO "cbt" (thought, distortions, evidence, reframed, user_id)
+			VALUES (${thought}, ${distortions}::jsonb, ${evidence}, ${reframed}, ${userId});
+		`;
+		console.log('submitted to db');
+	} catch (error) {
+		console.error(error);
+		return {
+			message: 'Database error: Failed to create cbt.',
+		};
+	}
+
+	redirect('/cognitive-behavioral-therapy');
+}
