@@ -3,6 +3,7 @@ import Title from '@/app/ui/title';
 import { FC, useContext, useState } from 'react';
 import { CBTContext } from '../page';
 import { CbtType } from '@/app/lib/definitions';
+import Subtitle from '@/app/ui/subtitle';
 
 interface ChildProps {
 	updateCbt: (value: CbtType) => void;
@@ -20,9 +21,7 @@ export const Reframed: FC<ChildProps> = ({ updateCbt }) => {
 	return (
 		<div className="flex flex-col">
 			<Title text="4. Reframed Thought" />
-			<p className="italic">
-				Is there a way to reframe your thought in a more positive way?
-			</p>
+			<Subtitle text="Is there a way to reframe your thought in a more positive way?" />
 			<Input
 				type="text"
 				id="evidence"

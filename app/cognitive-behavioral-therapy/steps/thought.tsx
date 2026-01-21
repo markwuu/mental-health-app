@@ -3,6 +3,7 @@ import Title from '@/app/ui/title';
 import { FC, useContext, useState } from 'react';
 import { CBTContext } from '../page';
 import { CbtType } from '@/app/lib/definitions';
+import Subtitle from '@/app/ui/subtitle';
 
 interface ChildProps {
 	updateCbt: (value: CbtType) => void;
@@ -20,9 +21,7 @@ export const Thought: FC<ChildProps> = ({ updateCbt }) => {
 	return (
 		<div className="flex flex-col">
 			<Title text="1. Automatic Thought" />
-			<p className="italic">
-				What is the automatic thought you are experiencing?
-			</p>
+			<Subtitle text="What is the automatic thought you are experiencing?" />
 			<Input
 				type="text"
 				id="thought"

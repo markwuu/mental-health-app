@@ -3,6 +3,7 @@ import Title from '@/app/ui/title';
 import { FC, useContext, useState } from 'react';
 import { CBTContext } from '../page';
 import { CbtType } from '@/app/lib/definitions';
+import Subtitle from '@/app/ui/subtitle';
 
 interface ChildProps {
 	updateCbt: (value: CbtType) => void;
@@ -20,9 +21,7 @@ export const Evidence: FC<ChildProps> = ({ updateCbt }) => {
 	return (
 		<div className="flex flex-col">
 			<Title text="3. Evidence to the contrary" />
-			<p className="italic">
-				List any evidence that challenges the automatic thought you have
-			</p>
+			<Subtitle text="List any evidence that challenges the automatic thought you have" />
 			<Input
 				type="text"
 				id="thought"
