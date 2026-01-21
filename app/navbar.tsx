@@ -7,7 +7,7 @@ export default async function Navbar() {
 
 	return (
 		<div className="flex-row w-3xl md:w-5xl">
-			<div className="pt-8 px-10 text-xl">
+			<div className="pt-8 px-10 text-sm">
 				<Navlinks name={name} />
 			</div>
 		</div>
