@@ -3,6 +3,7 @@ import Title from '@/app/ui/title';
 import { FC, useContext } from 'react';
 import { CBTContext } from '../page';
 import { CbtType } from '@/app/lib/definitions';
+import Subtitle from '@/app/ui/subtitle';
 
 interface ChildProps {
 	updateCbt: (value: CbtType) => void;
@@ -26,14 +27,15 @@ export const Distortion: FC<ChildProps> = ({ updateCbt }) => {
 	return (
 		<div className="flex flex-col">
 			<Title text="2. Cognitive Distortions" />
-			<p className="italic">
-				Select all the distortions that apply to your automatic thought
-			</p>
+			<Subtitle text="Select all the distortions that apply to your automatic thought" />
 			<div className="grid grid-cols-3 gap-2 pt-1">
 				{cbt.distortions.map(
 					(distortion: { label: string; checked: boolean }) => {
 						return (
-							<div className="flex flex-row gap-3 py-1" key={distortion.label}>
+							<div
+								className="flex flex-row gap-3 py-1 items-center"
+								key={distortion.label}
+							>
 								<Input
 									type="checkbox"
 									id={distortion.label}
@@ -42,7 +44,9 @@ export const Distortion: FC<ChildProps> = ({ updateCbt }) => {
 									checked={distortion.checked}
 									onChange={(e) => handleCheckboxChange(e)}
 								/>
-								<label htmlFor={distortion.label}>{distortion.label}</label>
+								<label className="text-sm" htmlFor={distortion.label}>
+									{distortion.label}
+								</label>
 							</div>
 						);
 					},

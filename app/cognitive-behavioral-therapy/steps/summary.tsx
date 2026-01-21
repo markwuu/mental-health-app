@@ -18,7 +18,10 @@ export default function Summary() {
 				{distortions.map((distortion: { label: string; checked: boolean }) => {
 					if (distortion.checked) {
 						return (
-							<div className="flex flex-row gap-3 py-1" key={distortion.label}>
+							<div
+								className="flex flex-row gap-3 py-1 items-center"
+								key={distortion.label}
+							>
 								<Input
 									type="checkbox"
 									id={distortion.label}
