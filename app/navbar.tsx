@@ -6,7 +6,7 @@ export default async function Navbar() {
 	const name = profile[0].name;
 
 	return (
-		<div className="flex-row w-3xl md:w-5xl">
+		<div className="w-3xl md:w-4xl hidden sm:block">
 			<div className="pt-8 px-10 text-sm">
 				<Navlinks name={name} />
 			</div>
