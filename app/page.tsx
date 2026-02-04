@@ -7,7 +7,7 @@ export default async function Home() {
 
 	return (
 		<div className="font-sans">
-			<main className="space-y-8 p-20 max-w-4xl w-187.5 mx-auto py-16 border-white border-2">
+			<main className="space-y-8 p-20 max-w-4xl w-187.5 mx-auto py-16 border-white border-0">
 				<Header text="Healing from Anxious Attachment" />
 			</main>
 		</div>
