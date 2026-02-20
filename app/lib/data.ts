@@ -1,5 +1,5 @@
 import postgres from 'postgres';
-import { TriggerType } from './definitions';
+import { CbtType, TriggerType } from './definitions';
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
 export async function fetchProfile() {
@@ -30,5 +30,21 @@ export async function fetchTriggers() {
 	} catch (error) {
 		console.error('Database Error:', error);
 		throw new Error('Failed to fetch trigger data.');
+	}
+}
+
+export async function fetchCbt() {
+	try {
+		const data = await sql<CbtType[]>`
+			SELECT "user".name, cbt.thought, cbt.distortions, cbt.evidence, cbt.user_id
+			FROM "user"
+			JOIN cbt ON cbt.user_id = "user".id
+			WHERE "user".id = 1;
+		`;
+
+		return data;
+	} catch (error) {
+		console.error('Database Error:', error);
+		throw new Error('Failed to fetch cbt data.');
 	}
 }
