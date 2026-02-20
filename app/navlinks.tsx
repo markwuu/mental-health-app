@@ -45,15 +45,6 @@ export default function Navlinks({ name }: { name: string }) {
 			>
 				<Link href="/triggered">Triggered</Link>
 			</li>
-			<li
-				className={`uppercase font-mono ${
-					pathname === '/entries'
-						? 'underline underline-offset-6 font-bold'
-						: ''
-				}`}
-			>
-				<Link href="/entries">Entries</Link>
-			</li>
 			<li className="ml-auto font-mono">
 				<span className="italic">{getGreetingText()} </span>🖤
 			</li>
