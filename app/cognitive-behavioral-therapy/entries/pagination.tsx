@@ -1,26 +1,24 @@
 'use client';
 
 import { useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
 
 interface PaginationProps {
 	totalPages: number;
 	initialPage?: number;
+	onPageChange: (page: number) => void;
 }
 
-function Pagination({ totalPages, initialPage = 1 }: PaginationProps) {
+function Pagination({
+	totalPages,
+	onPageChange,
+	initialPage = 1,
+}: PaginationProps) {
 	const [currentPage, setCurrentPage] = useState(initialPage);
-	const router = useRouter();
-	const pathname = usePathname();
 
 	const goToPage = (page: number) => {
 		if (page < 1 || page > totalPages) return;
 		setCurrentPage(page);
-		const segments = pathname.split('/');
-		const slugIndex = segments.length - 1;
-		segments[slugIndex] = page.toString();
-		const newPath = segments.join('/');
-		router.push(newPath);
+		onPageChange(page);
 	};
 
 	const getPageNumbers = (): (number | '...')[] => {
