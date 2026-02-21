@@ -36,7 +36,7 @@ export async function fetchTriggers() {
 export async function fetchCbt() {
 	try {
 		const data = await sql<CbtType[]>`
-			SELECT "user".name, cbt.thought, cbt.distortions, cbt.evidence, cbt.user_id
+			SELECT "user".name, cbt.id, cbt.thought, cbt.distortions, cbt.evidence, cbt.user_id
 			FROM "user"
 			JOIN cbt ON cbt.user_id = "user".id
 			WHERE "user".id = 1;
@@ -47,4 +47,52 @@ export async function fetchCbt() {
 		console.error('Database Error:', error);
 		throw new Error('Failed to fetch cbt data.');
 	}
+}
+
+export async function paginateCbtQuery(
+	page: number = 1,
+	pageSize: number = 20,
+): Promise<{
+	data: CbtType[];
+	pagination: {
+		page: number;
+		pageSize: number;
+		totalRecords: number;
+		totalPages: number;
+		hasNext: boolean;
+		hasPrev: boolean;
+	};
+}> {
+	if (page < 1) throw new Error('Page number must be 1 or greater.');
+	if (pageSize < 1) throw new Error('Page size must be 1 or greater.');
+	const cbtQueryString = `
+			SELECT "user".name, cbt.id, cbt.thought, cbt.distortions, cbt.evidence, cbt.user_id
+			FROM "user"
+			JOIN cbt ON cbt.user_id = "user".id
+			WHERE "user".id = 1
+		`;
+
+	const offset = (page - 1) * pageSize;
+
+	const [countResult, dataResult] = await Promise.all([
+		sql`SELECT COUNT(*) FROM (${sql.unsafe(cbtQueryString)}) AS total_count`,
+		sql.unsafe(
+			`${cbtQueryString} LIMIT ${pageSize} OFFSET ${offset}`,
+		) as Promise<CbtType[]>,
+	]);
+
+	const totalRecords = parseInt(countResult[0].count, 10);
+	const totalPages = Math.ceil(totalRecords / pageSize);
+
+	return {
+		data: dataResult,
+		pagination: {
+			page,
+			pageSize,
+			totalRecords,
+			totalPages,
+			hasNext: page < totalPages,
+			hasPrev: page > 1,
+		},
+	};
 }
