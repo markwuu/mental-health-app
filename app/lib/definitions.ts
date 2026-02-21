@@ -48,3 +48,28 @@ export interface CbtType {
 	evidence: string;
 	reframed: string;
 }
+
+export const distortionList = [
+	{ label: 'catastrophizing', checked: false },
+	{ label: 'should statements', checked: false },
+	{ label: 'magnification', checked: false },
+	{ label: 'minimization', checked: false },
+	{ label: 'emotional reasoning', checked: false },
+	{ label: 'mental filter', checked: false },
+	{ label: 'disqualify the positive', checked: false },
+	{ label: 'all-or-nothing thinking', checked: false },
+	{ label: 'personalization', checked: false },
+	{ label: 'blaming', checked: false },
+	{ label: 'mind reading', checked: false },
+	{ label: 'fortune telling', checked: false },
+	{ label: 'labeling', checked: false },
+	{ label: 'overgeneralization', checked: false },
+	{ label: 'jumping to conclusions', checked: false },
+];
+
+export const emptyCBT = {
+	thought: '',
+	distortions: distortionList,
+	evidence: '',
+	reframed: '',
+};
