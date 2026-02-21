@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 
 export default function Navlinks({ name }: { name: string }) {
 	const pathname = usePathname();
+	const pathSegment = pathname.split('/')[1];
 	const currentTime = new Date();
 
 	const getGreetingText = () => {
@@ -29,7 +30,7 @@ export default function Navlinks({ name }: { name: string }) {
 			</li>
 			<li
 				className={`uppercase font-mono ${
-					pathname === '/cognitive-behavioral-therapy'
+					pathSegment === 'cognitive-behavioral-therapy'
 						? 'underline underline-offset-6 font-bold'
 						: ''
 				}`}
@@ -38,7 +39,7 @@ export default function Navlinks({ name }: { name: string }) {
 			</li>
 			<li
 				className={`uppercase font-mono ${
-					pathname === '/triggered'
+					pathSegment === 'triggered'
 						? 'underline underline-offset-6 font-bold'
 						: ''
 				}`}
