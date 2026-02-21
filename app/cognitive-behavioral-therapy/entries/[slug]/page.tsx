@@ -23,8 +23,10 @@ export default async function WorkingThroughATriggerPage({
 			<Header text="Cognitive Behavioral Therapy Entries" />
 			{data.map((entry) => {
 				return (
-					<div key={entry.id}>
-						<h1>{entry.id}</h1>
+					<div key={entry.id} className="border-2 border-white p-3 rounded-lg">
+						<h1>
+							{entry.id}. {entry.thought}
+						</h1>
 					</div>
 				);
 			})}
