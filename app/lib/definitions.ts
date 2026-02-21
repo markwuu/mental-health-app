@@ -42,6 +42,7 @@ export interface TriggerType {
 }
 
 export interface CbtType {
+	id?: number;
 	thought: string;
 	distortions: distortion[];
 	evidence: string;
