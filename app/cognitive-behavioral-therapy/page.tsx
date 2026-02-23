@@ -124,7 +124,7 @@ export default function CognitiveBehavioralTherapyPage() {
 				<div className="text-center">
 					<Link
 						href="/cognitive-behavioral-therapy"
-						className="text-2xl text-center uppercase font-bold tracking-tight font-mono underline underline-offset-6"
+						className="text-2xl text-center uppercase font-bold tracking-tight font-mono underline underline-offset-6 text-slate-500"
 					>
 						Cognitive Behavior Therapy
 					</Link>
