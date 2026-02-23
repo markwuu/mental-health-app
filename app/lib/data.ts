@@ -68,10 +68,11 @@ export async function paginateCbtQuery(
 	if (page < 1) throw new Error('Page number must be 1 or greater.');
 	if (pageSize < 1) throw new Error('Page size must be 1 or greater.');
 	const cbtQueryString = `
-			SELECT "user".name, cbt.id, cbt.thought, cbt.distortions, cbt.evidence, cbt.user_id
+			SELECT "user".name, cbt.id, cbt.thought, cbt.distortions, cbt.evidence, cbt.user_id, cbt.created_at
 			FROM "user"
 			JOIN cbt ON cbt.user_id = "user".id
 			WHERE "user".id = 1
+			ORDER BY cbt.created_at DESC
 		`;
 
 	const offset = (page - 1) * pageSize;
