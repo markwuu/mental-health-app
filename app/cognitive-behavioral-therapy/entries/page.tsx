@@ -6,7 +6,7 @@ import { CbtType } from '@/app/lib/definitions';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-export default function WorkingThroughATriggerPage() {
+export default function CognitiveBehavioralTherapyEntriesPage() {
 	const [page, setPage] = useState(1);
 	const [data, setData] = useState<{
 		data: CbtType[];
@@ -54,7 +54,7 @@ export default function WorkingThroughATriggerPage() {
 				</span>
 				<Link
 					href="/cognitive-behavioral-therapy/entries"
-					className="text-2xl text-center uppercase font-bold tracking-tight font-mono underline underline-offset-6"
+					className="text-2xl text-center uppercase font-bold tracking-tight font-mono underline underline-offset-6 text-slate-500"
 				>
 					Entries
 				</Link>
@@ -62,14 +62,22 @@ export default function WorkingThroughATriggerPage() {
 			<div className="p-5 h-83 rounded-lg bg-slate-800">
 				{data?.data.map((entry) => {
 					return (
-						<div key={entry.id} className="p-3 rounded-lg mb-3 bg-black">
-							<div>
-								[{entry?.created_at?.toLocaleString()}]{' '}
-								<span className="font-bold italic">
-									{shortenString(entry.thought, 40)}
-								</span>
+						<Link
+							key={entry.id}
+							href={`/cognitive-behavioral-therapy/entries/${entry.id}`}
+						>
+							<div
+								key={entry.id}
+								className="p-3 rounded-lg mb-3 bg-black cursor-pointer hover:text-slate-500"
+							>
+								<div>
+									[{entry?.created_at?.toLocaleString()}]{' '}
+									<span className="font-bold italic">
+										{shortenString(entry.thought, 40)}
+									</span>
+								</div>
 							</div>
-						</div>
+						</Link>
 					);
 				})}
 			</div>
