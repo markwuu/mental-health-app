@@ -1,6 +1,5 @@
 'use client';
 
-import Header from '@/app/ui/header';
 import { paginateCbtQuery } from '@/app/lib/data';
 import Pagination from './pagination';
 import { CbtType } from '@/app/lib/definitions';
@@ -60,15 +59,20 @@ export default function WorkingThroughATriggerPage() {
 					Entries
 				</Link>
 			</div>
-			{data?.data.map((entry) => {
-				return (
-					<div key={entry.id} className="border-2 border-white p-3 rounded-lg">
-						<h1>
-							{entry.id}. {shortenString(entry.thought, 60)}
-						</h1>
-					</div>
-				);
-			})}
+			<div className="p-5 h-83 rounded-lg bg-slate-800">
+				{data?.data.map((entry) => {
+					return (
+						<div key={entry.id} className="p-3 rounded-lg mb-3 bg-black">
+							<div>
+								[{entry?.created_at?.toLocaleString()}]{' '}
+								<span className="font-bold italic">
+									{shortenString(entry.thought, 40)}
+								</span>
+							</div>
+						</div>
+					);
+				})}
+			</div>
 			<div className="flex justify-center">
 				{data ? (
 					<Pagination
