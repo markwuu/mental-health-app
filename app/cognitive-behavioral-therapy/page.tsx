@@ -12,7 +12,6 @@ import NavigateButtons from '../components/navigateButtons';
 import { CbtType, emptyCBT } from '../lib/definitions';
 import Button from '../ui/button';
 import { createCbt } from '../lib/actions';
-import Header from '../ui/header';
 import Link from 'next/link';
 
 export const CBTContext = createContext<CbtType>(emptyCBT);
