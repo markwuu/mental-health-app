@@ -54,7 +54,7 @@ export async function fetchCbt() {
 export async function fetchCbtEntry(id: string) {
 	try {
 		const data = await sql<CbtType[]>`
-			SELECT "user".name, cbt.id, cbt.thought, cbt.distortions, cbt.evidence, cbt.user_id
+			SELECT cbt.id, cbt.thought, cbt.distortions, cbt.evidence, cbt.reframed
 			FROM "user"
 			JOIN cbt ON cbt.user_id = "user".id
 			WHERE "user".id = 1 AND cbt.id = ${id};
