@@ -13,7 +13,7 @@ export default function Button({
 	const buttonTextColor = isDisabled ? 'text-[#414141]' : 'text-[#ffff]';
 	return (
 		<button
-			className={`px-7 py-1.5 my-1 border-3 border-gray-300 rounded ${buttonTextColor} ${styles}`}
+			className={`px-7 py-1.5 my-1 border-3 border-gray-300 rounded ${buttonTextColor} ${styles} ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
 			onClick={() => onClick(name)}
 			disabled={isDisabled}
 		>
