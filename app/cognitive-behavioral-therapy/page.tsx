@@ -20,7 +20,7 @@ export default function CognitiveBehavioralTherapyPage() {
 	const router = useRouter();
 	const [currentPage, setCurrentPage] = useState('Thought');
 	const [cbt, setCbt] = useState<CbtType>(emptyCBT);
-	const [backButtonDisabled] = useState<boolean>(false);
+	const [backButtonDisabled, setBackButtonDisabled] = useState<boolean>(true);
 	const [nextButtonDisabled, setNextButtonDisabled] = useState<boolean>(true);
 	const [isPending, startTransition] = useTransition();
 
@@ -95,14 +95,19 @@ export default function CognitiveBehavioralTherapyPage() {
 
 		switch (direction) {
 			case 'next':
-				if (currentPage === 'Thought') return setCurrentPage('Distortion');
+				if (currentPage === 'Thought') {
+					setBackButtonDisabled(false);
+					return setCurrentPage('Distortion');
+				}
 				if (currentPage === 'Distortion') return setCurrentPage('Evidence');
 				if (currentPage === 'Evidence') return setCurrentPage('Reframed');
 				if (currentPage === 'Reframed') return setCurrentPage('Summary');
 				if (currentPage === 'Summary') return router.push('/');
 			case 'back':
-				if (currentPage === 'Thought') return router.push('/');
-				if (currentPage === 'Distortion') return setCurrentPage('Thought');
+				if (currentPage === 'Distortion') {
+					setBackButtonDisabled(true);
+					return setCurrentPage('Thought');
+				}
 				if (currentPage === 'Evidence') return setCurrentPage('Distortion');
 				if (currentPage === 'Reframed') return setCurrentPage('Evidence');
 				if (currentPage === 'Summary') return setCurrentPage('Reframed');
@@ -120,20 +125,20 @@ export default function CognitiveBehavioralTherapyPage() {
 
 	return (
 		<CBTContext.Provider value={cbt}>
-			<div className="space-y-8 p-20 max-w-4xl w-187.5 mx-auto py-16">
-				<div className="text-center">
+			<div className='space-y-8 p-20 max-w-4xl w-187.5 mx-auto py-16'>
+				<div className='text-center'>
 					<Link
-						href="/cognitive-behavioral-therapy"
-						className="text-2xl text-center uppercase font-bold tracking-tight font-mono underline underline-offset-6 text-slate-500"
+						href='/cognitive-behavioral-therapy'
+						className='text-2xl text-center uppercase font-bold tracking-tight font-mono underline underline-offset-6 text-slate-500'
 					>
 						Cognitive Behavior Therapy
 					</Link>
-					<span className="text-2xl text-center uppercase font-bold tracking-tight font-mono">
+					<span className='text-2xl text-center uppercase font-bold tracking-tight font-mono'>
 						{' / '}
 					</span>
 					<Link
-						href="/cognitive-behavioral-therapy/entries"
-						className="text-2xl text-center uppercase font-bold tracking-tight font-mono "
+						href='/cognitive-behavioral-therapy/entries'
+						className='text-2xl text-center uppercase font-bold tracking-tight font-mono '
 					>
 						Entries
 					</Link>
@@ -141,7 +146,7 @@ export default function CognitiveBehavioralTherapyPage() {
 				{isPending ? <span>Sending data...</span> : null}
 				{displayStep()}
 				{currentPage === 'Summary' ? (
-					<Button name="Submit" onClick={postTriggerData} />
+					<Button name='Submit' onClick={postTriggerData} />
 				) : (
 					<NavigateButtons
 						backButtonDisabled={backButtonDisabled}
