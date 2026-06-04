@@ -11,8 +11,6 @@ export default async function CognitiveBehavioralTherapyEntryPage({
 }) {
 	const { slug } = await params;
 	const entry = await fetchCbtEntry(slug);
-	console.log(`🚀 ~ CognitiveBehavioralTherapyEntryPage ~ entry:`, entry);
-	console.log(`🚀 ~ CognitiveBehavioralTherapyEntryPage ~ entry:`, entry[0]);
 	const { thought, distortions, evidence, reframed } = entry[0];
 
 	return (
