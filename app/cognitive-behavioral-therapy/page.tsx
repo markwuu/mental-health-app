@@ -134,7 +134,7 @@ export default function CognitiveBehavioralTherapyPage() {
 						Cognitive Behavior Therapy
 					</Link>
 					<span className='text-2xl text-center uppercase font-bold tracking-tight font-mono'>
-						{' / '}
+						{' > '}
 					</span>
 					<Link
 						href='/cognitive-behavioral-therapy/entries'
