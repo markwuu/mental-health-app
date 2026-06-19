@@ -57,5 +57,5 @@ export async function createCbt(userId: string, data: any) {
 		};
 	}
 
-	redirect('/cognitive-behavioral-therapy');
+	redirect('/cognitive-behavioral-therapy/entries');
 }
