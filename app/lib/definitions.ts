@@ -48,6 +48,7 @@ export interface CbtType {
 	evidence: string;
 	reframed: string;
 	created_at?: string;
+	updated_at?: string;
 }
 
 export const distortionList = [
