@@ -4,14 +4,16 @@ import { CbtType } from '@/app/lib/definitions';
 import Answer from '@/app/ui/answer';
 import Button from '@/app/ui/button';
 import Input from '@/app/ui/input';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import AutoExpandingTextarea from '../../../ui/expandingInput';
+import { updateCbt } from '@/app/lib/actions';
 
 export default function Entry({ data }: { data: CbtType }) {
 	const [editButtonDisabled, setEditButtonDisabled] = useState(false);
 	const [saveButtonDisabled, setSaveButtonDisabled] = useState(true);
 	const [displayEditMenu, setDisplayEditMenu] = useState(false);
 	const [entryData, setEntryData] = useState(data);
+	const [isPending, startTransition] = useTransition();
 
 	const handleEditButton = () => {
 		setDisplayEditMenu(true);
@@ -23,6 +25,7 @@ export default function Entry({ data }: { data: CbtType }) {
 		setSaveButtonDisabled(true);
 		setDisplayEditMenu(false);
 		setEditButtonDisabled(false);
+		submitData();
 	};
 
 	const handleChange = (
@@ -49,6 +52,16 @@ export default function Entry({ data }: { data: CbtType }) {
 			distortions: updatedDistortion,
 		}));
 	};
+
+	const submitData = () => {
+		startTransition(async () => {
+			await updateCbt('1', entryData);
+		});
+	};
+
+	if (isPending) {
+		return <span className='text-xl'>🚀 Saving data...</span>;
+	}
 
 	return (
 		<div>
@@ -111,7 +124,6 @@ export default function Entry({ data }: { data: CbtType }) {
 											name={distortion.label}
 											checked={distortion.checked}
 											onChange={(e) => {
-												console.log(e.target.value);
 												handleCheckboxChange(e);
 											}}
 										/>
