@@ -35,6 +35,21 @@ export default function Entry({ data }: { data: CbtType }) {
 		}));
 	};
 
+	const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const { value, checked } = event.target;
+		const updatedDistortion = entryData.distortions.map((distortion) => {
+			if (distortion.label === value) {
+				return { label: value, checked: checked };
+			}
+			return distortion;
+		});
+
+		setEntryData((prev) => ({
+			...prev,
+			distortions: updatedDistortion,
+		}));
+	};
+
 	return (
 		<div>
 			{!displayEditMenu && (
@@ -95,7 +110,10 @@ export default function Entry({ data }: { data: CbtType }) {
 											value={distortion.label}
 											name={distortion.label}
 											checked={distortion.checked}
-											readOnly={true}
+											onChange={(e) => {
+												console.log(e.target.value);
+												handleCheckboxChange(e);
+											}}
 										/>
 										<label htmlFor={distortion.label}>
 											<Answer text={distortion.label} />
