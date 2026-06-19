@@ -129,7 +129,7 @@ export default function CognitiveBehavioralTherapyPage() {
 				<div className='text-center flex justify-between items-center'>
 					<Link
 						href='/cognitive-behavioral-therapy'
-						className='bg-[#d02309] text-white text-2xl font-serif font-black italic tracking-[-0.06em] px-2 py-2 leading-none uppercase'
+						className='bg-[#d02309] text-white text-2xl font-serif font-black italic tracking-[-0.06em] px-3 py-2 leading-none uppercase'
 					>
 						Cognitive Behavior Therapy
 					</Link>
@@ -138,7 +138,7 @@ export default function CognitiveBehavioralTherapyPage() {
 					</span>
 					<Link
 						href='/cognitive-behavioral-therapy/entries'
-						className='text-2xl font-serif font-black italic tracking-[-0.06em] px-2 py-2 leading-none uppercase'
+						className='text-2xl font-serif font-black italic tracking-[-0.06em] px-3 py-2 leading-none uppercase'
 					>
 						Entries
 					</Link>
