@@ -71,13 +71,12 @@ export default function Entry({ data }: { data: CbtType }) {
 			{displayEditMenu && (
 				<div className='flex flex-col'>
 					<h2 className='font-extrabold text-lg'>1. Automatic Thought:</h2>
-					<Input
-						type='text'
+					<AutoExpandingTextarea
 						id='thought'
 						name='thought'
 						value={entryData.thought}
 						placeholder='Enter thought here'
-						handleChange={handleChange}
+						onChange={handleChange}
 					/>
 					<h2 className='pt-7 font-extrabold text-lg'>
 						2. Cognitive Distortions:
@@ -115,13 +114,12 @@ export default function Entry({ data }: { data: CbtType }) {
 						onChange={handleChange}
 					/>
 					<h2 className='pt-7 font-extrabold text-lg'>4. Reframed Thought:</h2>
-					<Input
-						type='text'
+					<AutoExpandingTextarea
 						id='reframed'
 						name='reframed'
 						value={entryData.reframed}
 						placeholder='Enter reframed thought here'
-						handleChange={handleChange}
+						onChange={handleChange}
 					/>
 				</div>
 			)}
