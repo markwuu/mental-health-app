@@ -10,6 +10,16 @@ export default async function CognitiveBehavioralTherapyEntryPage({
 	const { slug } = await params;
 	const entry = await fetchCbtEntry(slug);
 
+	const date = new Date(entry[0].updated_at || '');
+	const localTime = date.toLocaleString('en-US', {
+		timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+		year: '2-digit',
+		month: 'numeric',
+		day: 'numeric',
+		hour: 'numeric',
+		minute: 'numeric',
+	});
+
 	if (!entry) return <div>loading...</div>;
 
 	return (
@@ -31,11 +41,11 @@ export default async function CognitiveBehavioralTherapyEntryPage({
 					Entries
 				</Link>
 			</div>
-			<div className='text-center text-2xl underline underline-offset-10'>
+			<div className='font-semibold text-center text-2xl underline underline-offset-7'>
 				Entry {slug}
 			</div>
 			<div className='text-center text-base underline-offset-10'>
-				[Updated: {entry[0].updated_at?.toLocaleString()}]
+				[Updated: {localTime}]
 			</div>
 			<Entry data={entry[0]} />
 		</div>
