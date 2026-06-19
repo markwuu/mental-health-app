@@ -43,7 +43,6 @@ export default function AutoExpandingTextarea({
 			name={name}
 			placeholder={placeholder}
 			value={inputValue}
-			// onChange={(e) => setInputValue(e.target.value)}
 			onChange={handleChange}
 			rows={1}
 			required={required}
