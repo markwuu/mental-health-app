@@ -13,7 +13,7 @@ export default async function CognitiveBehavioralTherapyEntryPage({
 	if (!entry) return <div>loading...</div>;
 
 	return (
-		<div className='space-y-8 p-20 max-w-4xl w-187.5 mx-auto py-16'>
+		<div className='space-y-4 p-20 max-w-4xl w-187.5 mx-auto py-16'>
 			<div className='text-center'>
 				<Link
 					href='/cognitive-behavioral-therapy'
@@ -33,6 +33,9 @@ export default async function CognitiveBehavioralTherapyEntryPage({
 			</div>
 			<div className='text-center text-2xl underline underline-offset-10'>
 				Entry {slug}
+			</div>
+			<div className='text-center text-base underline-offset-10'>
+				[Updated: {entry[0].updated_at?.toLocaleString()}]
 			</div>
 			<Entry data={entry[0]} />
 		</div>
