@@ -1,3 +1,5 @@
+import AutoExpandingTextarea from './expandingInput';
+
 export default function Input({
 	id,
 	name,
@@ -36,10 +38,22 @@ export default function Input({
 				onChange={handleChange}
 			/>
 		);
+	} else if (type === 'textarea') {
+		return (
+			<AutoExpandingTextarea
+				id={id}
+				name={name}
+				placeholder={placeholder}
+				value={value}
+				required={required}
+				styles={styles}
+				onChange={handleChange}
+			/>
+		);
 	} else if (type === 'checkbox') {
 		return (
 			<input
-				type="checkbox"
+				type='checkbox'
 				id={id}
 				name={name}
 				value={value}
@@ -54,14 +68,14 @@ export default function Input({
 			<>
 				<input
 					className={`appearance-none rounded-full w-4 h-4 border-2 border-gray-400 transition-all duration-200 ease-linear mr-1 relative top-1 checked:border-[6px] checked:border-solid checked:border-[#511717] ${styles}`}
-					type="radio"
+					type='radio'
 					id={id}
 					name={name}
 					value={value}
 					onChange={onChange}
 					checked={checked}
 				/>
-				<label htmlFor={id} className="pl-2 pr-5">
+				<label htmlFor={id} className='pl-2 pr-5'>
 					{name}
 				</label>
 			</>
