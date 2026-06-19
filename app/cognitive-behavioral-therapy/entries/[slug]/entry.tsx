@@ -10,17 +10,26 @@ export default function Entry({ data }: { data: CbtType }) {
 	const [editButtonDisabled, setEditButtonDisabled] = useState(false);
 	const [saveButtonDisabled, setSaveButtonDisabled] = useState(true);
 	const [displayEditMenu, setDisplayEditMenu] = useState(false);
-
-	if (!data) return <div>loading...</div>;
-	const { thought, distortions, evidence, reframed } = data;
+	const [entryData, setEntryData] = useState(data);
 
 	const handleEditButton = () => {
 		setDisplayEditMenu(true);
 		setSaveButtonDisabled(false);
+		setEditButtonDisabled(true);
 	};
 
 	const handleSaveButton = () => {
 		setSaveButtonDisabled(true);
+		setDisplayEditMenu(false);
+		setEditButtonDisabled(false);
+	};
+
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+		const { name, value } = event.target; // Destructure name and value from the input
+		setEntryData((prev) => ({
+			...prev,
+			[name]: value,
+		}));
 	};
 
 	return (
@@ -28,12 +37,12 @@ export default function Entry({ data }: { data: CbtType }) {
 			{!displayEditMenu && (
 				<div className='flex flex-col'>
 					<h2 className='font-extrabold text-lg'>1. Automatic Thought:</h2>
-					<Answer text={thought} />
+					<Answer text={entryData?.thought} />
 					<h2 className='pt-7 font-extrabold text-lg'>
 						2. Cognitive Distortions:
 					</h2>
 					<div className='grid grid-cols-3 gap-2'>
-						{distortions.map(
+						{entryData?.distortions.map(
 							(distortion: { label: string; checked: boolean }) => {
 								if (distortion.checked) {
 									return (
@@ -51,20 +60,27 @@ export default function Entry({ data }: { data: CbtType }) {
 						)}
 					</div>
 					<h2 className='pt-7 font-extrabold text-lg'>3. Evidence:</h2>
-					<Answer text={evidence} />
+					<Answer text={entryData?.evidence} />
 					<h2 className='pt-7 font-extrabold text-lg'>4. Reframed Thought:</h2>
-					<Answer text={reframed} />
+					<Answer text={entryData?.reframed} />
 				</div>
 			)}
 			{displayEditMenu && (
 				<div className='flex flex-col'>
 					<h2 className='font-extrabold text-lg'>1. Automatic Thought:</h2>
-					<Answer text={thought} />
+					<Input
+						type='text'
+						id='thought'
+						name='thought'
+						value={entryData.thought}
+						placeholder='Enter thought here'
+						handleChange={handleChange}
+					/>
 					<h2 className='pt-7 font-extrabold text-lg'>
 						2. Cognitive Distortions:
 					</h2>
 					<div className='grid grid-cols-3 gap-2'>
-						{distortions.map(
+						{entryData?.distortions.map(
 							(distortion: { label: string; checked: boolean }) => {
 								return (
 									<div
@@ -88,9 +104,23 @@ export default function Entry({ data }: { data: CbtType }) {
 						)}
 					</div>
 					<h2 className='pt-7 font-extrabold text-lg'>3. Evidence:</h2>
-					<Answer text={evidence} />
+					<Input
+						type='text'
+						id='evidence'
+						name='evidence'
+						value={entryData.evidence}
+						placeholder='Enter evidence here'
+						handleChange={handleChange}
+					/>
 					<h2 className='pt-7 font-extrabold text-lg'>4. Reframed Thought:</h2>
-					<Answer text={reframed} />
+					<Input
+						type='text'
+						id='reframed'
+						name='reframed'
+						value={entryData.reframed}
+						placeholder='Enter reframed thought here'
+						handleChange={handleChange}
+					/>
 				</div>
 			)}
 			<div className='flex flex-row gap-7 justify-center p-10'>
