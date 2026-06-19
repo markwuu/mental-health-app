@@ -5,6 +5,7 @@ import Answer from '@/app/ui/answer';
 import Button from '@/app/ui/button';
 import Input from '@/app/ui/input';
 import { useState } from 'react';
+import AutoExpandingTextarea from '../../../ui/expandingInput';
 
 export default function Entry({ data }: { data: CbtType }) {
 	const [editButtonDisabled, setEditButtonDisabled] = useState(false);
@@ -24,7 +25,9 @@ export default function Entry({ data }: { data: CbtType }) {
 		setEditButtonDisabled(false);
 	};
 
-	const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+	const handleChange = (
+		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+	): void => {
 		const { name, value } = event.target; // Destructure name and value from the input
 		setEntryData((prev) => ({
 			...prev,
@@ -104,13 +107,12 @@ export default function Entry({ data }: { data: CbtType }) {
 						)}
 					</div>
 					<h2 className='pt-7 font-extrabold text-lg'>3. Evidence:</h2>
-					<Input
-						type='text'
+					<AutoExpandingTextarea
 						id='evidence'
 						name='evidence'
-						value={entryData.evidence}
 						placeholder='Enter evidence here'
-						handleChange={handleChange}
+						value={entryData.evidence}
+						onChange={handleChange}
 					/>
 					<h2 className='pt-7 font-extrabold text-lg'>4. Reframed Thought:</h2>
 					<Input
