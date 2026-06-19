@@ -117,7 +117,7 @@ export default function CognitiveBehavioralTherapyPage() {
 		}
 	};
 
-	const postTriggerData = () => {
+	const postCbtData = () => {
 		startTransition(async () => {
 			await createCbt('1', cbt);
 		});
@@ -146,7 +146,7 @@ export default function CognitiveBehavioralTherapyPage() {
 				{isPending ? <span>Sending data...</span> : null}
 				{displayStep()}
 				{currentPage === 'Summary' ? (
-					<Button name='Submit' onClick={postTriggerData} />
+					<Button name='Submit' onClick={postCbtData} />
 				) : (
 					<NavigateButtons
 						backButtonDisabled={backButtonDisabled}
