@@ -71,8 +71,12 @@ export default function CognitiveBehavioralTherapyEntriesPage() {
 								className='p-3 rounded-lg mb-3 bg-black cursor-pointer hover:text-slate-500'
 							>
 								<div>
-									[{entry?.created_at?.toLocaleString()}]{' '}
-									<span className='font-bold italic'>
+									<span className='font-bold'>[ Entry {entry?.id} 🦇 </span>
+									{entry?.updated_at
+										? new Date(entry.updated_at).toLocaleDateString()
+										: ''}
+									<span className='font-bold'> ] </span>
+									<span className='italic'>
 										{shortenString(entry.thought, 40)}
 									</span>
 								</div>
