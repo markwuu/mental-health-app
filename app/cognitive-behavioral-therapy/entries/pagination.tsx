@@ -117,9 +117,9 @@ const styles: Record<string, React.CSSProperties> = {
 		transition: 'all 0.15s',
 	},
 	active: {
-		background: '#1D293C',
+		background: '#d02309',
 		color: '#fff',
-		borderColor: '#1D293C',
+		borderColor: '#d02309',
 	},
 	disabled: {
 		opacity: 0.4,

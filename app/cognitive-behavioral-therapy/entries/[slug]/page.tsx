@@ -24,29 +24,29 @@ export default async function CognitiveBehavioralTherapyEntryPage({
 
 	return (
 		<div className='space-y-4 p-20 max-w-4xl w-187.5 mx-auto py-16'>
-			<div className='text-center'>
+			<div className='text-center flex justify-between items-center'>
 				<Link
 					href='/cognitive-behavioral-therapy'
-					className='text-2xl text-center uppercase font-bold tracking-tight font-mono'
+					className='text-2xl font-serif font-black italic tracking-[-0.06em] px-2 py-2 leading-none uppercase'
 				>
 					Cognitive Behavior Therapy
 				</Link>
-				<span className='text-2xl text-center uppercase font-bold tracking-tight font-mono'>
+				<span className='text-xl text-center font-bold tracking-tight font-mono'>
 					{' > '}
 				</span>
 				<Link
 					href='/cognitive-behavioral-therapy/entries'
-					className='text-2xl text-center uppercase font-bold tracking-tight font-mono'
+					className='text-2xl font-serif font-black italic tracking-[-0.06em] px-2 py-2 leading-none uppercase'
 				>
 					Entries
 				</Link>
 			</div>
-			<div className='font-semibold text-center text-2xl underline underline-offset-7'>
-				Entry {slug}
+			<div className='pt-4 text-center text-2xl'>
+				<span className='bg-[#d02309] text-white font-serif font-black italic tracking-[-0.06em] px-4 py-2 leading-none uppercase'>
+					Entry {slug}
+				</span>
 			</div>
-			<div className='text-center text-base underline-offset-10'>
-				[Updated: {localTime}]
-			</div>
+			<div className='text-center text-base italic'>[Updated: {localTime}]</div>
 			<Entry data={entry[0]} />
 		</div>
 	);
