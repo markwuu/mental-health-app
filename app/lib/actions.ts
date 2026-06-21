@@ -68,7 +68,7 @@ export async function updateCbt(userId: string, data: any) {
 	try {
 		await sql`
 			UPDATE "cbt"
-			SET thought = ${thought}, distortions = ${distortions}, evidence = ${evidence}, reframed = ${reframed}, user_id = ${userId}
+			SET thought = ${thought}, distortions = ${distortions}, evidence = ${evidence}, reframed = ${reframed}, user_id = ${userId}, updated_at = CURRENT_TIMESTAMP
 			WHERE id = ${id};
 		`;
 		console.log('submitted to db');
