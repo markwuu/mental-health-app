@@ -1,6 +1,7 @@
 import { fetchCbtEntry } from '@/app/lib/data';
 import Link from 'next/link';
 import Entry from './entry';
+import { formatDateToLocal } from '@/app/lib/utils';
 
 export default async function CognitiveBehavioralTherapyEntryPage({
 	params,
@@ -10,15 +11,8 @@ export default async function CognitiveBehavioralTherapyEntryPage({
 	const { slug } = await params;
 	const entry = await fetchCbtEntry(slug);
 
-	const date = new Date(entry[0].updated_at || '');
-	const localTime = date.toLocaleString('en-US', {
-		timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-		year: '2-digit',
-		month: 'numeric',
-		day: 'numeric',
-		hour: 'numeric',
-		minute: 'numeric',
-	});
+	const currentDate =
+		entry[0].updated_at && formatDateToLocal(entry[0].updated_at);
 
 	if (!entry) return <div>loading...</div>;
 
@@ -46,7 +40,9 @@ export default async function CognitiveBehavioralTherapyEntryPage({
 					Entry {slug}
 				</span>
 			</div>
-			<div className='text-center text-base italic'>[Updated: {localTime}]</div>
+			<div className='text-center text-base italic'>
+				[Updated: {currentDate}]
+			</div>
 			<Entry data={entry[0]} />
 		</div>
 	);

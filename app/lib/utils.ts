@@ -1,15 +1,16 @@
-export const formatDateToLocal = (
-	dateStr: string,
-	locale: string = 'en-US',
-) => {
-	const date = new Date(dateStr);
-	const options: Intl.DateTimeFormatOptions = {
+export const formatDateToLocal = (dateStr: string) => {
+	const date = new Date(dateStr || '');
+
+	const localTime = date.toLocaleString('en-US', {
+		timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+		year: '2-digit',
+		month: 'numeric',
 		day: 'numeric',
-		month: 'short',
-		year: 'numeric',
-	};
-	const formatter = new Intl.DateTimeFormat(locale, options);
-	return formatter.format(date);
+		hour: 'numeric',
+		minute: 'numeric',
+	});
+
+	return localTime;
 };
 
 export const generatePagination = (currentPage: number, totalPages: number) => {

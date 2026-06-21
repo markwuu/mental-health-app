@@ -5,6 +5,7 @@ import Pagination from './pagination';
 import { CbtType } from '@/app/lib/definitions';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { formatDateToLocal } from '@/app/lib/utils';
 
 export default function CognitiveBehavioralTherapyEntriesPage() {
 	const [page, setPage] = useState(1);
@@ -72,12 +73,10 @@ export default function CognitiveBehavioralTherapyEntriesPage() {
 							>
 								<div>
 									<span className='font-bold'>[ Entry {entry?.id} 🦇 </span>
-									{entry?.updated_at
-										? new Date(entry.updated_at).toLocaleDateString()
-										: ''}
+									{entry?.updated_at && formatDateToLocal(entry?.updated_at)}
 									<span className='font-bold'> ] </span>
 									<span className='italic'>
-										{shortenString(entry.thought, 40)}
+										{shortenString(entry.thought, 35)}
 									</span>
 								</div>
 							</div>
