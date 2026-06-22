@@ -2,6 +2,7 @@ import Title from '@/app/ui/title';
 import { FC, useContext, useState } from 'react';
 import { TriggerContext } from '../page';
 import { TriggerType } from '@/app/lib/definitions';
+import Subtitle from '@/app/ui/subtitle';
 
 interface ChildProps {
 	updateTrigger: (value: TriggerType) => void;
@@ -20,18 +21,18 @@ export const Trigger: FC<ChildProps> = ({ updateTrigger }) => {
 	};
 
 	return (
-		<div className="flex flex-col">
-			<Title text="1. Acknowledge the trigger" />
-			<p className="italic">Rate trigger intensity from 1-10</p>
+		<div className='flex flex-col'>
+			<Title text='1. Acknowledge the trigger' />
+			<Subtitle text='Rate trigger intensity from 1-10' />
 			<select
-				className="w-full appearance-none bg-white px-3 py-3 my-2 pr-10 text-base text-black border border-gray-300 rounded cursor-pointer bg-no-repeat bg-right bg-size-[20px]"
+				className='w-full appearance-none bg-white px-3 py-3 my-2 pr-10 text-base text-black border border-gray-300 rounded cursor-pointer bg-no-repeat bg-right bg-size-[20px]'
 				style={{
 					backgroundImage: `url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9L12 15L18 9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"/></svg>')`,
 					backgroundRepeat: 'no-repeat',
 					backgroundPosition: 'right 10px center',
 				}}
-				name="triggerLevel"
-				id="trigger-level-select"
+				name='triggerLevel'
+				id='trigger-level-select'
 				value={selectedValue}
 				onChange={(e) => handleChange(e)}
 			>
