@@ -153,7 +153,7 @@ export default function Entry({ data }: { data: CbtType }) {
 					/>
 				</div>
 			)}
-			<div className='flex flex-row gap-7 justify-center p-10'>
+			<div className='flex flex-row gap-3 justify-center p-10'>
 				<Button
 					disabled={editButtonDisabled}
 					name='Edit'
