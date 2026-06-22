@@ -10,10 +10,12 @@ export default function Button({
 	disabled?: boolean;
 }) {
 	const isDisabled = disabled;
-	const buttonTextColor = isDisabled ? 'text-[#414141]' : 'text-[#ffff]';
+	const buttonTextColor = isDisabled
+		? 'opacity-40 cursor-not-allowed'
+		: 'bg-[#d02309] border-[#d02309]';
 	return (
 		<button
-			className={`px-7 py-1.5 my-1 border-3 border-gray-300 rounded ${buttonTextColor} ${styles} ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+			className={`px-3.5 py-2 border border-[#d1d5db] rounded-md bg-white cursor-pointer text-sm font-medium text-[#374151] transition-all duration-150 ${buttonTextColor} ${styles}`}
 			onClick={() => onClick(name)}
 			disabled={isDisabled}
 		>
