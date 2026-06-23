@@ -72,7 +72,7 @@ export default function WorkingThroughATriggerPage() {
 	const router = useRouter();
 	const [currentPage, setCurrentPage] = useState('Trigger');
 	const [trigger, setTrigger] = useState<TriggerType>(emptyTrigger);
-	const [backButtonDisabled] = useState<boolean>(false);
+	const [backButtonDisabled, setBackButtonDisabled] = useState<boolean>(true);
 	const [nextButtonDisabled, setNextButtonDisabled] = useState<boolean>(true);
 	const [isPending, startTransition] = useTransition();
 
@@ -197,7 +197,10 @@ export default function WorkingThroughATriggerPage() {
 
 		switch (direction) {
 			case 'next':
-				if (currentPage === 'Trigger') setCurrentPage('Distance');
+				if (currentPage === 'Trigger') {
+					setBackButtonDisabled(false);
+					return setCurrentPage('Distance');
+				}
 				if (currentPage === 'Distance') setCurrentPage('Sensations');
 				if (currentPage === 'Sensations') setCurrentPage('EnergyRelease');
 				if (currentPage === 'EnergyRelease') setCurrentPage('Analyze');
@@ -209,8 +212,10 @@ export default function WorkingThroughATriggerPage() {
 				break;
 
 			case 'back':
-				if (currentPage === 'Trigger') return router.push('/');
-				if (currentPage === 'Distance') setCurrentPage('Trigger');
+				if (currentPage === 'Distance') {
+					setBackButtonDisabled(true);
+					setCurrentPage('Trigger');
+				}
 				if (currentPage === 'Sensations') setCurrentPage('Distance');
 				if (currentPage === 'EnergyRelease') setCurrentPage('Sensations');
 				if (currentPage === 'Analyze') setCurrentPage('EnergyRelease');
