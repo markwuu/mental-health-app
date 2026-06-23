@@ -1,3 +1,3 @@
 export default function Answer({ text }: { text: string }) {
-	return <p className=''> {text}</p>;
+	return <p>{text}</p>;
 }
