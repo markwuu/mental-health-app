@@ -3,6 +3,7 @@ import Title from '@/app/ui/title';
 import { FC, useContext, useState } from 'react';
 import { TriggerContext } from '../page';
 import { TriggerType } from '@/app/lib/definitions';
+import Subtitle from '@/app/ui/subtitle';
 
 interface ChildProps {
 	updateTrigger: (value: TriggerType) => void;
@@ -50,38 +51,36 @@ export const EnergyRelease: FC<ChildProps> = ({ updateTrigger }) => {
 	};
 
 	return (
-		<div className="flex flex-col">
-			<Title text="4. Releasing Energy" />
-			<p className="italic">Add an activity</p>
-			<div className="flex gap-6 pb-5">
+		<div className='flex flex-col'>
+			<Title text='4. Releasing Energy' />
+			<Subtitle text='Add an activity' />
+			<div className='flex gap-6 pb-5'>
 				<Input
-					type="text"
-					id="thought"
-					name="thought"
+					type='text'
+					id='thought'
+					name='thought'
 					value={inputValue}
-					placeholder="Enter activity here"
+					placeholder='Enter activity here'
 					handleChange={(e) => handleInputChange(e)}
 				/>
 				<button
 					onClick={handleSubmit}
-					className="px-4 py-3 my-2 border-2 border-gray-300 rounded"
+					className='px-4 py-3 my-2 border-2 border-gray-300 rounded'
 				>
 					+
 				</button>
 			</div>
-			<p className="italic">
-				Select an activity to physically release the energy stored inside you
-			</p>
-			<div className="grid grid-cols-3 gap-2 pt-1">
+			<Subtitle text='Select an activity to physically release the energy stored inside you' />
+			<div className='grid grid-cols-3 gap-2 pt-1'>
 				{trigger.energyRelease.map(
 					(energyRelease: { label: string; checked: boolean }) => {
 						return (
 							<div
-								className="flex flex-row items-center gap-3 py-1"
+								className='flex flex-row items-center gap-3 py-1'
 								key={energyRelease.label}
 							>
 								<Input
-									type="checkbox"
+									type='checkbox'
 									id={energyRelease.label}
 									value={energyRelease.label}
 									name={energyRelease.label}
