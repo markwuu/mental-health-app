@@ -66,7 +66,7 @@ export default function Entry({ data }: { data: CbtType }) {
 	return (
 		<div>
 			{!displayEditMenu && (
-				<div className='flex flex-col'>
+				<div className='flex flex-col items-start'>
 					<h2 className='font-extrabold text-lg'>1. Automatic Thought:</h2>
 					<Answer text={entryData?.thought} />
 					<h2 className='pt-7 font-extrabold text-lg'>
