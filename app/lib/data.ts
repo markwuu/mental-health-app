@@ -115,3 +115,52 @@ export async function paginateCbtQuery(
 		},
 	};
 }
+
+export async function paginateTriggerQuery(
+	page: number = 1,
+	pageSize: number = 20,
+): Promise<{
+	data: TriggerType[];
+	pagination: {
+		page: number;
+		pageSize: number;
+		totalRecords: number;
+		totalPages: number;
+		hasNext: boolean;
+		hasPrev: boolean;
+	};
+}> {
+	if (page < 1) throw new Error('Page number must be 1 or greater.');
+	if (pageSize < 1) throw new Error('Page size must be 1 or greater.');
+	const triggerQueryString = `
+			SELECT "user".name, trigger.id, trigger.trigger_level, trigger.distance, trigger.sensations, trigger.energy_release, trigger.analyze_trigger, trigger.healing, trigger.reflection_level, trigger.user_id, trigger.created_at, trigger.updated_at
+			FROM "user"
+			JOIN trigger ON trigger.user_id = "user".id
+			WHERE "user".id = 1
+			ORDER BY trigger.created_at DESC
+		`;
+
+	const offset = (page - 1) * pageSize;
+
+	const [countResult, dataResult] = await Promise.all([
+		sql`SELECT COUNT(*) FROM (${sql.unsafe(triggerQueryString)}) AS total_count`,
+		sql.unsafe(
+			`${triggerQueryString} LIMIT ${pageSize} OFFSET ${offset}`,
+		) as Promise<TriggerType[]>,
+	]);
+
+	const totalRecords = parseInt(countResult[0].count, 10);
+	const totalPages = Math.ceil(totalRecords / pageSize);
+
+	return {
+		data: dataResult,
+		pagination: {
+			page,
+			pageSize,
+			totalRecords,
+			totalPages,
+			hasNext: page < totalPages,
+			hasPrev: page > 1,
+		},
+	};
+}
