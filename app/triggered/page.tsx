@@ -15,7 +15,7 @@ import { TriggerType } from '../lib/definitions';
 import Button from '../ui/button';
 import { createTrigger } from '../lib/actions';
 import NavigateButtons from '../components/navigateButtons';
-import Breadcrumb from '../components/breadcrumb';
+import Breadcrumb from '../ui/breadcrumb';
 
 const sensationsList = [
 	{ label: 'sweating', checked: false },
