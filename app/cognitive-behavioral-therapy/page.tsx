@@ -12,7 +12,7 @@ import NavigateButtons from '../components/navigateButtons';
 import { CbtType, emptyCBT } from '../lib/definitions';
 import Button from '../ui/button';
 import { createCbt } from '../lib/actions';
-import Breadcrumb from '../components/breadcrumb';
+import Breadcrumb from '../ui/breadcrumb';
 
 export const CBTContext = createContext<CbtType>(emptyCBT);
 
