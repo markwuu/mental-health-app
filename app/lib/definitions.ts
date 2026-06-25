@@ -32,6 +32,7 @@ export type healing = {
 };
 
 export interface TriggerType {
+	id?: number;
 	triggerLevel: number | undefined;
 	distance: boolean | null;
 	sensations: sensation[];
@@ -39,6 +40,8 @@ export interface TriggerType {
 	analyzeTrigger: analyzeTrigger;
 	healing: healing;
 	reflectionLevel: number | undefined;
+	created_at?: string;
+	updated_at?: string;
 }
 
 export interface CbtType {
