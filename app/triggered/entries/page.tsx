@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { formatDateToLocal } from '@/app/lib/utils';
 import Breadcrumb from '@/app/ui/breadcrumb';
 
-export default function CognitiveBehavioralTherapyEntriesPage() {
+export default function TriggeredEntriesPage() {
 	const [page, setPage] = useState(1);
 	const [data, setData] = useState<{
 		data: TriggerType[];
