@@ -7,6 +7,7 @@ import Input from '@/app/ui/input';
 import { useState, useTransition } from 'react';
 import AutoExpandingTextarea from '../../../ui/expandingInput';
 import { updateCbt } from '@/app/lib/actions';
+import Subtitle from '@/app/ui/subtitle';
 
 export default function Entry({ data }: { data: CbtType }) {
 	const [editButtonDisabled, setEditButtonDisabled] = useState(false);
@@ -99,6 +100,7 @@ export default function Entry({ data }: { data: CbtType }) {
 			{displayEditMenu && (
 				<div className='flex flex-col'>
 					<h2 className='font-extrabold text-lg'>1. Automatic Thought:</h2>
+					<Subtitle text='What is the automatic thought you are experiencing?' />
 					<AutoExpandingTextarea
 						id='thought'
 						name='thought'
@@ -109,6 +111,7 @@ export default function Entry({ data }: { data: CbtType }) {
 					<h2 className='pt-7 font-extrabold text-lg'>
 						2. Cognitive Distortions:
 					</h2>
+					<Subtitle text='Select all the distortions that apply to your automatic thought' />
 					<div className='grid grid-cols-3 gap-2'>
 						{entryData?.distortions.map(
 							(distortion: { label: string; checked: boolean }) => {
@@ -136,6 +139,7 @@ export default function Entry({ data }: { data: CbtType }) {
 						)}
 					</div>
 					<h2 className='pt-7 font-extrabold text-lg'>3. Evidence:</h2>
+					<Subtitle text='List any evidence that challenges the automatic thought you have' />
 					<AutoExpandingTextarea
 						id='evidence'
 						name='evidence'
@@ -144,6 +148,7 @@ export default function Entry({ data }: { data: CbtType }) {
 						onChange={handleChange}
 					/>
 					<h2 className='pt-7 font-extrabold text-lg'>4. Reframed Thought:</h2>
+					<Subtitle text='Is there a way to reframe your thought in a more positive way?' />
 					<AutoExpandingTextarea
 						id='reframed'
 						name='reframed'
