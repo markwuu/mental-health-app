@@ -1,7 +1,7 @@
 'use server';
 
 import postgres from 'postgres';
-import { CbtType, TriggerType } from './definitions';
+import { CbtType, dbTriggerType, TriggerType } from './definitions';
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
 export async function fetchProfile() {
@@ -69,14 +69,37 @@ export async function fetchCbtEntry(id: string) {
 
 export async function fetchTriggerEntry(id: string) {
 	try {
-		const data = await sql<TriggerType[]>`
-			SELECT trigger.id, trigger.trigger_level, trigger.distance, trigger.sensations, trigger.energy_release, trigger.analyze_trigger, trigger.healing, trigger.reflection_level, trigger.user_id, trigger.created_at, trigger.updated_at
+		const data = await sql<dbTriggerType[]>`
+			SELECT trigger.id, trigger.trigger_level, trigger.distance, trigger.sensations, trigger.energy_release, trigger.analyze_trigger, trigger.healing, trigger.reflection_level, trigger.created_at, trigger.updated_at
 			FROM "user"
 			JOIN trigger ON trigger.user_id = "user".id
 			WHERE "user".id = 1 AND trigger.id = ${id};
 		`;
 
-		return data;
+		console.log(data[0]);
+		const {
+			trigger_level,
+			distance,
+			sensations,
+			energy_release,
+			analyze_trigger,
+			healing,
+			reflection_level,
+			created_at,
+			updated_at,
+		} = data[0];
+
+		return {
+			triggerLevel: trigger_level,
+			distance,
+			sensations,
+			energyRelease: energy_release,
+			analyzeTrigger: analyze_trigger,
+			healing,
+			reflectionLevel: reflection_level,
+			created_at,
+			updated_at,
+		};
 	} catch (error) {
 		console.error('Database Error:', error);
 		throw new Error('Failed to fetch trigger entry data.');
