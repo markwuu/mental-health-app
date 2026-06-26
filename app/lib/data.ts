@@ -67,6 +67,22 @@ export async function fetchCbtEntry(id: string) {
 	}
 }
 
+export async function fetchTriggerEntry(id: string) {
+	try {
+		const data = await sql<CbtType[]>`
+			trigger.id, trigger.trigger_level, trigger.distance, trigger.sensations, trigger.energy_release, trigger.analyze_trigger, trigger.healing, trigger.reflection_level, trigger.user_id, trigger.created_at, trigger.updated_at
+			FROM "user"
+			JOIN trigger ON trigger.user_id = "user".id
+			WHERE "user".id = 1 AND trigger.id = ${id};
+		`;
+
+		return data;
+	} catch (error) {
+		console.error('Database Error:', error);
+		throw new Error('Failed to fetch trigger entry data.');
+	}
+}
+
 export async function paginateCbtQuery(
 	page: number = 1,
 	pageSize: number = 20,
