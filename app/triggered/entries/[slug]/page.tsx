@@ -11,8 +11,7 @@ export default async function CognitiveBehavioralTherapyEntryPage({
 	const { slug } = await params;
 	const entry = await fetchTriggerEntry(slug);
 
-	const currentDate =
-		entry[0].updated_at && formatDateToLocal(entry[0].updated_at);
+	const currentDate = entry.updated_at && formatDateToLocal(entry.updated_at);
 
 	if (!entry) return <div>loading...</div>;
 
@@ -43,7 +42,7 @@ export default async function CognitiveBehavioralTherapyEntryPage({
 			<div className='text-center text-base italic'>
 				[Updated: {currentDate}]
 			</div>
-			<Entry data={entry[0]} />
+			<Entry data={entry} />
 		</div>
 	);
 }
