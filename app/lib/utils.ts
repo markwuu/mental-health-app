@@ -45,3 +45,23 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
 		totalPages,
 	];
 };
+
+export const finalPercent = (triggerLevel: number, reflectionLevel: number) => {
+	if (reflectionLevel && triggerLevel) {
+		const difference = ((reflectionLevel - triggerLevel) / triggerLevel) * 100;
+		if (difference === 0) {
+			return `${triggerLevel} → ${reflectionLevel} (${Math.abs(
+				difference,
+			)}% change)`;
+		} else if (difference < 0) {
+			return `${triggerLevel} → ${reflectionLevel} (${Math.abs(
+				difference,
+			)}% decrease)`;
+		} else if (difference > 0) {
+			return `${triggerLevel} → ${reflectionLevel} (${Math.abs(
+				difference,
+			)}% increase)`;
+		}
+	}
+	return;
+};
