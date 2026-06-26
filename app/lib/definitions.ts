@@ -44,6 +44,19 @@ export interface TriggerType {
 	updated_at?: string;
 }
 
+export interface dbTriggerType {
+	id?: number;
+	trigger_level: number;
+	distance: boolean | null;
+	sensations: sensation[];
+	energy_release: energyRelease[];
+	analyze_trigger: analyzeTrigger;
+	healing: healing;
+	reflection_level: number;
+	created_at?: string;
+	updated_at?: string;
+}
+
 export interface CbtType {
 	id?: number;
 	thought: string;
