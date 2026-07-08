@@ -17,7 +17,7 @@ export default function Input({
 	id: string;
 	name: string;
 	placeholder?: string;
-	value?: string;
+	value?: string | boolean;
 	required?: boolean;
 	handleChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	checked?: boolean;
