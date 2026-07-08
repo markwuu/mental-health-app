@@ -42,6 +42,36 @@ export async function createTrigger(userId: string, data: any) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function updateTrigger(userId: string, data: any) {
+	const {
+		triggerLevel,
+		distance,
+		sensations,
+		energyRelease,
+		analyzeTrigger,
+		healing,
+		reflectionLevel,
+		id,
+	} = data;
+
+	try {
+		await sql`
+			UPDATE "trigger"
+			SET trigger_level = ${triggerLevel}, distance = ${distance}, sensations = ${sensations}, energy_release = ${energyRelease}, analyze_trigger = ${analyzeTrigger}, healing = ${healing}, reflection_level = ${reflectionLevel}, user_id = ${userId}, updated_at = CURRENT_TIMESTAMP
+			WHERE id = ${id};
+		`;
+		console.log('submitted to db');
+	} catch (error) {
+		console.error(error);
+		return {
+			message: 'Database error: Failed to update trigger.',
+		};
+	}
+
+	revalidatePath(`/triggered/entries/${id}`);
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function createCbt(userId: string, data: any) {
 	const { thought, distortions, evidence, reframed } = data;
 
@@ -75,7 +105,7 @@ export async function updateCbt(userId: string, data: any) {
 	} catch (error) {
 		console.error(error);
 		return {
-			message: 'Database error: Failed to create cbt.',
+			message: 'Database error: Failed to update cbt.',
 		};
 	}
 
